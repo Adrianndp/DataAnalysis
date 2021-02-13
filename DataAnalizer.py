@@ -40,9 +40,9 @@ def linear_regression(stock, property_to_check=None, start_date=None, end_date=N
     id_index = list(dataframe).index('ID')
     dataframe = dataframe.iloc[:, [id_index, property_index]]
     X = dataframe.iloc[:, 0].values.reshape(-1, 1)
-    Y = dataframe.iloc[:, 1].values.reshape(-1, 1)  # -1 means that calculate the dimension of rows, but have 1 column
+    Y = dataframe.iloc[:, 1].values.reshape(-1, 1)
     linear_regressor = LinearRegression()
-    linear_regressor.fit(X, Y)  # perform linear regression
+    linear_regressor.fit(X, Y)
     Y_pred = linear_regressor.predict(X)
     plt.scatter(X, Y)
     plt.plot(X, Y_pred, color='red')
