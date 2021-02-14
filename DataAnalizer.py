@@ -17,7 +17,7 @@ def visualize_close(stock, time=None):
     __plot([df['Close']], "Close value")
 
 
-def moving_average(stock, window_size=None, start_date=None, data=False):
+def get_EMA(stock, window_size=None, start_date=None, plot=False):
     if window_size is None:
         """
         The 8- and 20-day EMA tend to be the most popular time frames for day traders 
@@ -30,12 +30,36 @@ def moving_average(stock, window_size=None, start_date=None, data=False):
     df = __initialize_stock(stock=stock, start_date=start_date, close=True)
     close = df['Close']
     moving_average_list = df['Close'].rolling(window=window_size).mean()
-    if data:
+    if not plot:
         df["Moving average"] = moving_average_list
         return df
     else:
         data_to_plot = [close, moving_average_list]
-        __plot(data_to_plot, "Moving average")
+        __plot(data_to_plot, "EMA")
+
+
+def get_RSI(stock, window_size=None, start_date=None, plot=False):
+    if window_size is None:
+        window_size = 14
+    if start_date is None:
+        start_date = date.get_date_year(1)
+    df = __initialize_stock(stock=stock, start_date=start_date)
+    adj_close = df['Adj Close']
+    delta = adj_close.diff()
+    delta = delta[1:]
+    up, down = delta.copy(), delta.copy()
+    up[up < 0] = 0
+    down[down > 0] = 0
+    avg_gain = up.ewm(span=window_size).mean()
+    avg_loss = down.abs().ewm(span=window_size).mean()
+    RS = avg_gain / avg_loss
+    RSI = 100.0 - (100.0 / (1.0 + RS))
+    df['RSI'] = RSI
+    if plot:
+        __plot([df['RSI']], "RSI")
+    else:
+        df.drop(df.columns.difference(['Close', 'Adj Close', 'RSI']), 1, inplace=True)
+        return df
 
 
 def linear_regression(stock, property_to_check=None, start_date=None, end_date=None):
@@ -63,8 +87,12 @@ def linear_regression(stock, property_to_check=None, start_date=None, end_date=N
     linear_regressor = LinearRegression()
     linear_regressor.fit(X, Y)
     Y_pred = linear_regressor.predict(X)
-    plt.scatter(X, Y)
-    plt.plot(X, Y_pred, color='red')
+    plt.figure(num="Graph", figsize=(10, 6), dpi=80, facecolor='k', edgecolor='c')
+    with plt.style.context('dark_background'):
+        plt.scatter(X, Y)
+        plt.plot(X, Y_pred, color='white')
+    font = {'family': 'arial', 'color': 'white', 'weight': 'normal', 'size': 20}
+    plt.title("Linear Regression", fontdict=font)
     plt.show()
 
 

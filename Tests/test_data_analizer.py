@@ -21,8 +21,11 @@ def test_linear_regression(stock):
 
 
 def test_moving_average(stock, window_size=None, start_date=None):
-    moving_average(stock, window_size, start_date)
+    get_EMA(stock, window_size, start_date, plot=True)
 
 
 def get_moving_average_df(stock, window_size=None, start_date=None):
-    return moving_average(stock, window_size, start_date, data=True)
+    return get_EMA(stock, window_size, start_date, plot=False)
+
+
+test_visualize_close_year("AAPL")
