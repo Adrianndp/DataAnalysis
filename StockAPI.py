@@ -1,10 +1,12 @@
 from pandas_datareader import data
 from yahoo_fin import stock_info as si
+from Helper.date_format import get_current_date
 import requests_html  # important to have for yahoo_fin to work
 
 
-def get_data(stock, start_date, end_date, head=False, index_date=False):
+def get_data(stock, start_date, end_date=None, head=False, index_date=False, close=False):
     """
+    :param bool close: get only the close values
     :param str stock: The symbol of the stock for example AAPL
     :param str start_date: Begin of the data he data
     :param str end_date: End of data. Must be more recent than start_date
@@ -13,14 +15,17 @@ def get_data(stock, start_date, end_date, head=False, index_date=False):
     :return: Data of a stock
     :raises Exception: if data not founded
     """
+    if end_date is None:
+        end_date = get_current_date()
     try:
         stock_data = data.DataReader(stock, 'yahoo', start_date, end_date)
+        if close:
+            stock_data = stock_data[['Close']]
         if index_date:
             stock_data.reset_index(level=0, inplace=True)
         if head:
             return stock_data.head(5)
-        else:
-            return stock_data
+        return stock_data
     except Exception as p:
         print(f'Error during parsing data. Reason: {p}')
         return
@@ -48,6 +53,3 @@ def get_worst_performers():
 def get_market_cap(stock):
     market_dict = data.get_quote_yahoo(stock)['marketCap'].to_dict()
     return market_dict[stock]
-
-
-print(get_market_cap("AAPL"))

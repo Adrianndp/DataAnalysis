@@ -1,6 +1,6 @@
 from DataAnalizer import *
 
-stock_input = "MSFT"
+stock_input = "AAPL"
 
 
 def test_visualize_close_year(stock):
@@ -20,4 +20,9 @@ def test_linear_regression(stock):
     linear_regression(stock)
 
 
-test_linear_regression(stock_input)
+def test_moving_average(stock, window_size=None, start_date=None):
+    moving_average(stock, window_size, start_date)
+
+
+def get_moving_average_df(stock, window_size=None, start_date=None):
+    return moving_average(stock, window_size, start_date, data=True)
