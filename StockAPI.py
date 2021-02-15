@@ -4,13 +4,13 @@ from Helper.date_format import get_current_date
 import requests_html  # important to have for yahoo_fin to work
 
 
-def get_data(stock, start_date, end_date=None, head=False, index_date=False, close=False):
+def get_data(stock, start_date, end_date=None, head=None, index_date=False, close=False):
     """
     :param bool close: get only the close values
     :param str stock: The symbol of the stock for example AAPL
     :param str start_date: Begin of the data he data
     :param str end_date: End of data. Must be more recent than start_date
-    :param bool head: if is True then returns the first  5 Rows of the data
+    :param int head: if is True then returns the first  5 Rows of the data
     :param bool index_date: if its true DATE will be a column instead of index.
     :return: Data of a stock
     :raises Exception: if data not founded
@@ -23,8 +23,8 @@ def get_data(stock, start_date, end_date=None, head=False, index_date=False, clo
             stock_data = stock_data[['Close']]
         if index_date:
             stock_data.reset_index(level=0, inplace=True)
-        if head:
-            return stock_data.head(5)
+        if head is not None:
+            return stock_data.head(90)
         return stock_data
     except Exception as p:
         print(f'Error during parsing data. Reason: {p}')

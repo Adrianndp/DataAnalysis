@@ -2,6 +2,7 @@ import matplotlib.pyplot as plt
 from Helper import date_format as date
 from sklearn.linear_model import LinearRegression
 import StockAPI as myAPI
+import numpy as np
 
 
 def visualize_close(stock, time=None):
@@ -17,17 +18,10 @@ def visualize_close(stock, time=None):
     __plot([df['Close']], "Close value")
 
 
-def get_EMA(stock, window_size=None, start_date=None, plot=False):
+def get_EMA(df, window_size=None, plot=False):
     if window_size is None:
-        """
-        The 8- and 20-day EMA tend to be the most popular time frames for day traders 
-        while the 50 and 200-day EMA are better suited for long term investors.
-        """
+        # 8- and 20-day for day traders while the 50 and 200-day EMA for long term investors.
         window_size = 20
-    if start_date is None:
-        start_date = date.get_date_year(1)
-
-    df = __initialize_stock(stock=stock, start_date=start_date, close=True)
     close = df['Close']
     moving_average_list = df['Close'].rolling(window=window_size).mean()
     if not plot:
@@ -38,12 +32,9 @@ def get_EMA(stock, window_size=None, start_date=None, plot=False):
         __plot(data_to_plot, "EMA")
 
 
-def get_RSI(stock, window_size=None, start_date=None, plot=False):
+def get_RSI(df, window_size=None, plot=False):
     if window_size is None:
         window_size = 14
-    if start_date is None:
-        start_date = date.get_date_year(1)
-    df = __initialize_stock(stock=stock, start_date=start_date)
     adj_close = df['Adj Close']
     delta = adj_close.diff()
     delta = delta[1:]
@@ -62,20 +53,13 @@ def get_RSI(stock, window_size=None, start_date=None, plot=False):
         return df
 
 
-def linear_regression(stock, property_to_check=None, start_date=None, end_date=None):
-    df = __initialize_stock(stock, start_date, end_date)
-    if df is None:
-        print("Dataset is empty")
-        return
+def linear_regression(df, property_to_check=None, plot=False):
     dataframe = df.copy()
     dataframe.reset_index(level=0, inplace=True)
-    if property_to_check is None and 'Close' in dataframe:
+    if property_to_check is None:
         property_to_check = 'Close'
-    else:
-        print('Close value is not in dataframe')
-        return
     if property_to_check in dataframe:
-        property_index = list(dataframe).index('Close')
+        property_index = list(dataframe).index(property_to_check)
     else:
         print("property not in dataset")
         return
@@ -87,27 +71,37 @@ def linear_regression(stock, property_to_check=None, start_date=None, end_date=N
     linear_regressor = LinearRegression()
     linear_regressor.fit(X, Y)
     Y_pred = linear_regressor.predict(X)
-    plt.figure(num="Graph", figsize=(10, 6), dpi=80, facecolor='k', edgecolor='c')
-    with plt.style.context('dark_background'):
-        plt.scatter(X, Y)
-        plt.plot(X, Y_pred, color='white')
-    font = {'family': 'arial', 'color': 'white', 'weight': 'normal', 'size': 20}
-    plt.title("Linear Regression", fontdict=font)
-    plt.show()
+    if plot:
+        plt.figure(num="Graph", figsize=(10, 6), dpi=80, facecolor='k', edgecolor='c')
+        with plt.style.context('dark_background'):
+            plt.scatter(X, Y)
+            plt.plot(X, Y_pred, color='white')
+        font = {'family': 'arial', 'color': 'white', 'weight': 'normal', 'size': 20}
+        plt.title("Linear Regression", fontdict=font)
+        plt.show()
+    else:
+        linear = np.array(Y_pred).reshape(1, len(dataframe.index)).tolist()[0]
+        dataframe['Linear'] = linear
+        dataframe = dataframe.drop(columns=['ID'])
+        return dataframe
 
 
-def __initialize_stock(stock, start_date=None, end_date=None, head=False, index_date=False, close=False):
+def __initialize_stock(stock, start_date=None, end_date=None, head=None, index_date=False, close=False):
     if start_date is None:
         start_date = date.get_date_month(6)  # 6 months ago Default
     return myAPI.get_data(stock=stock, start_date=start_date, end_date=end_date, head=head,
                           index_date=index_date, close=close)
 
 
-def __plot(rows_to_plot, name):
+def __plot(columns_to_plot, title):
+    """
+    :param list columns_to_plot: Columns
+    :param str title: Title of the  graph
+    """
     plt.figure(num="Graph", figsize=(10, 6), dpi=80, facecolor='k', edgecolor='c')
     with plt.style.context('dark_background'):
-        for row in rows_to_plot:
+        for row in columns_to_plot:
             plt.plot(row)
     font = {'family': 'arial', 'color': 'white', 'weight': 'normal', 'size': 20}
-    plt.title(name, fontdict=font)
+    plt.title(title, fontdict=font)
     plt.show()

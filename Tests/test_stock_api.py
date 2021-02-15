@@ -1,6 +1,6 @@
 from StockAPI import *
 
-input_stock = "AAPL"
+stock_input = "AAPL"
 dummy_start_date = "2019-10-10"
 
 
