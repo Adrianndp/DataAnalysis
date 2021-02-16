@@ -5,7 +5,7 @@ import StockAPI as myAPI
 import numpy as np
 
 
-def visualize_close(stock, time=None):
+def visualize_close(stock_name, time=None):
     if time == 'year':
         start_date = date.get_date_year(1)
     elif time == 'month':
@@ -14,7 +14,7 @@ def visualize_close(stock, time=None):
         start_date = date.get_date_day(1)
     else:
         start_date = date.get_date_month(6)
-    df = __initialize_stock(stock, start_date, close=True)
+    df = __initialize_stock(stock_name, start_date, close=True)
     __plot([df['Close']], "Close value")
 
 
@@ -86,10 +86,10 @@ def linear_regression(df, property_to_check=None, plot=False):
         return dataframe
 
 
-def __initialize_stock(stock, start_date=None, end_date=None, head=None, index_date=False, close=False):
+def __initialize_stock(stock_name, start_date=None, end_date=None, head=None, index_date=False, close=False):
     if start_date is None:
         start_date = date.get_date_month(6)  # 6 months ago Default
-    return myAPI.get_data(stock=stock, start_date=start_date, end_date=end_date, head=head,
+    return myAPI.get_data(stock_name=stock_name, start_date=start_date, end_date=end_date, head=head,
                           index_date=index_date, close=close)
 
 

@@ -4,10 +4,10 @@ from Helper.date_format import get_current_date
 import requests_html  # important to have for yahoo_fin to work
 
 
-def get_data(stock, start_date, end_date=None, head=None, index_date=False, close=False):
+def get_data(stock_name, start_date, end_date=None, head=None, index_date=False, close=False):
     """
     :param bool close: get only the close values
-    :param str stock: The symbol of the stock for example AAPL
+    :param str stock_name: The symbol of the stock for example AAPL
     :param str start_date: Begin of the data he data
     :param str end_date: End of data. Must be more recent than start_date
     :param int head: if is True then returns the first  5 Rows of the data
@@ -18,7 +18,7 @@ def get_data(stock, start_date, end_date=None, head=None, index_date=False, clos
     if end_date is None:
         end_date = get_current_date()
     try:
-        stock_data = data.DataReader(stock, 'yahoo', start_date, end_date)
+        stock_data = data.DataReader(stock_name, 'yahoo', start_date, end_date)
         if close:
             stock_data = stock_data[['Close']]
         if index_date:
@@ -31,8 +31,8 @@ def get_data(stock, start_date, end_date=None, head=None, index_date=False, clos
         return
 
 
-def get_current_stock_price(stock):
-    return si.get_live_price(stock)
+def get_current_stock_price(stock_name):
+    return si.get_live_price(stock_name)
 
 
 def get_most_active_stocks():
@@ -50,6 +50,6 @@ def get_worst_performers():
     return si.get_day_losers()
 
 
-def get_market_cap(stock):
-    market_dict = data.get_quote_yahoo(stock)['marketCap'].to_dict()
-    return market_dict[stock]
+def get_market_cap(stock_name):
+    market_dict = data.get_quote_yahoo(stock_name)['marketCap'].to_dict()
+    return market_dict[stock_name]
