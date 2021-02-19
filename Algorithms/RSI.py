@@ -1,5 +1,6 @@
 from DataAnalizer import get_RSI, linear_regression, __initialize_stock
 import math
+from Helper import date_format as date
 import numpy as np
 
 """
@@ -7,7 +8,8 @@ https://www.tradingview.com/support/solutions/43000502338-relative-strength-inde
 """
 
 stock = "AAPL"
-df = __initialize_stock(stock, start_date="2019-01-01")
+start_date = date.get_date_month(6)
+df = __initialize_stock(stock, start_date=start_date)
 
 
 def get_angle_by_2_points(point_a, point_b):
@@ -16,11 +18,18 @@ def get_angle_by_2_points(point_a, point_b):
     return math.degrees(math.atan2(delta_y, delta_x))
 
 
+def get_linear_list_from_df(dataframe, property_given):
+    linear_regression_data = linear_regression(dataframe[1:], property_to_check=property_given, plot=False)
+    return linear_regression_data['Linear'].tolist()
+
+
 RSI_data = get_RSI(df)
-linear_regression_RSI = linear_regression(RSI_data[1:], property_to_check="RSI", plot=False)
-linear_regression_close = linear_regression(df, plot=False)
-RSI_linear = linear_regression_RSI['Linear'].tolist()
-close_linear = linear_regression_close['Linear'].tolist()
-degree_of_close_line = get_angle_by_2_points((0, close_linear[0]), (len(close_linear), close_linear[-1]))
-degree_of_RSI_line = get_angle_by_2_points((0, RSI_linear[0]), (len(RSI_linear), RSI_linear[-1]))
+
+RSI_linear_list = get_linear_list_from_df(RSI_data, "RSI")
+close_linear_list = get_linear_list_from_df(df, 'Close')
+
+
+degree_of_close_line = get_angle_by_2_points((0, close_linear_list[0]), (len(close_linear_list), close_linear_list[-1]))
+print(degree_of_close_line)
+
 

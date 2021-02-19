@@ -26,3 +26,4 @@ def test_get_worst_performers():
 
 def test_get_market_cap(stock):
     return get_market_cap(stock)
+

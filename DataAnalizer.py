@@ -3,6 +3,7 @@ from Helper import date_format as date
 from sklearn.linear_model import LinearRegression
 import StockAPI as myAPI
 import numpy as np
+import math
 
 
 def visualize_close(stock_name, time=None):
@@ -98,10 +99,34 @@ def __plot(columns_to_plot, title):
     :param list columns_to_plot: Columns
     :param str title: Title of the  graph
     """
+    indexes = columns_to_plot[0].index.tolist()
     plt.figure(num="Graph", figsize=(10, 6), dpi=80, facecolor='k', edgecolor='c')
     with plt.style.context('dark_background'):
         for row in columns_to_plot:
             plt.plot(row)
+    intersections, index_list = get_intersections(columns_to_plot[0].tolist(), columns_to_plot[1].tolist(), indexes)
+    # TODO interceptions get data of interception the y value and the date.
+    # TODO a function with take the dates and gives you an index to plot
+    plt.plot(index_list, intersections, 'ro')
+
     font = {'family': 'arial', 'color': 'white', 'weight': 'normal', 'size': 20}
     plt.title(title, fontdict=font)
     plt.show()
+
+
+def get_intersections(list_a, list_b, indexes):
+    list_a = list(map(lambda x: round(x), list_a))
+    list_b = list(map(lambda x: round(x) if not math.isnan(x) else x, list_b))
+
+    intersections = []
+    index_list = []
+    for x in range(len(list_a)):
+        if list_a[x] == list_b[x]:
+            intersections.append(list_a[x])
+            index_list.append(x)
+    indexes_list = [indexes[x] for x in index_list]
+    # print(list_a)
+    # print(list_b)
+    # print(intersections)
+    # print(index_list)
+    return intersections, indexes_list
