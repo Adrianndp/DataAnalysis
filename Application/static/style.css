@@ -10,3 +10,13 @@
     font-size: 15px;
     line-height: 1.5;
 }
+
+.grey {
+    color: #000!important;
+    background-color: #9e9e9e!important;
+}
+
+.red {
+    color: #fff!important;
+    background-color: #f44336!important;
+}
