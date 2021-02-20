@@ -99,14 +99,13 @@ def __plot(columns_to_plot, title):
     :param list columns_to_plot: Columns
     :param str title: Title of the  graph
     """
-    indexes = columns_to_plot[0].index.tolist()
     plt.figure(num="Graph", figsize=(10, 6), dpi=80, facecolor='k', edgecolor='c')
     with plt.style.context('dark_background'):
         for row in columns_to_plot:
             plt.plot(row)
-    intersections, index_list = get_intersections(columns_to_plot[0].tolist(), columns_to_plot[1].tolist(), indexes)
-    # TODO interceptions get data of interception the y value and the date.
-    # TODO a function with take the dates and gives you an index to plot
+
+    indexes = columns_to_plot[0].index.tolist()
+    index_list, intersections = get_intersections(columns_to_plot[0].tolist(), columns_to_plot[1].tolist(), indexes)
     plt.plot(index_list, intersections, 'ro')
 
     font = {'family': 'arial', 'color': 'white', 'weight': 'normal', 'size': 20}
@@ -115,18 +114,15 @@ def __plot(columns_to_plot, title):
 
 
 def get_intersections(list_a, list_b, indexes):
+    """
+    :param column of dataframe list_a: intersects list_b
+    :param column of dataframe list_b: intersects list_a
+    :param index of df indexes:
+    :return: x and y coordinates of the points to plot
+    """
     list_a = list(map(lambda x: round(x), list_a))
     list_b = list(map(lambda x: round(x) if not math.isnan(x) else x, list_b))
-
-    intersections = []
-    index_list = []
-    for x in range(len(list_a)):
-        if list_a[x] == list_b[x]:
-            intersections.append(list_a[x])
-            index_list.append(x)
-    indexes_list = [indexes[x] for x in index_list]
-    # print(list_a)
-    # print(list_b)
-    # print(intersections)
-    # print(index_list)
-    return intersections, indexes_list
+    intersections_and_index = [(list_a[x], x) for x in range(len(list_a)) if list_a[x] == list_b[x]]
+    x_values = [indexes[intersections_and_index[i][1]] for i in range(len(intersections_and_index))]
+    y_values = [intersections_and_index[i][0] for i in range(len(intersections_and_index))]
+    return x_values, y_values
