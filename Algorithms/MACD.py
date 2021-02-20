@@ -1,4 +1,4 @@
-from DataAnalizer import get_EMA, __initialize_stock
+from Algorithms.DataAnalizer import get_EMA, __initialize_stock
 from Helper import date_format as date
 
 stock = "AAPL"

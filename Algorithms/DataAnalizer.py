@@ -1,7 +1,7 @@
 import matplotlib.pyplot as plt
 from Helper import date_format as date
 from sklearn.linear_model import LinearRegression
-import StockAPI as myAPI
+from APIS import StockAPI as myAPI
 import numpy as np
 import math
 

@@ -1,5 +1,5 @@
 import os
-from DataAnalizer import __initialize_stock
+from Algorithms.DataAnalizer import __initialize_stock
 
 
 def df_to_csv(stock, file_name, start_date=None, end_date=None):

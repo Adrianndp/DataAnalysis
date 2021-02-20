@@ -1,7 +1,6 @@
-from DataAnalizer import get_RSI, linear_regression, __initialize_stock
+from Algorithms.DataAnalizer import get_RSI, linear_regression, __initialize_stock
 import math
 from Helper import date_format as date
-import numpy as np
 
 """
 https://www.tradingview.com/support/solutions/43000502338-relative-strength-index-rsi/

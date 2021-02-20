@@ -9,6 +9,12 @@
 <style>
 html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
 </style>
+<script
+    src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"
+    integrity="sha512-s+xg36jbIujB2S2VKfpGmlC3T5V2TF3lY48DX7u2r9XzGzgPsa6wTpOQA7J9iffvdeBN0q9tKzRxVxw1JviZPg=="
+    crossorigin="anonymous"
+></script>
+<script src="../static/JS.js"></script>
 <body class="w3-light-grey">
 
 
@@ -17,26 +23,18 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
   <div class="w3-container w3-row">
     <div class="w3-col s8 w3-bar">
       <span>Welcome, <strong>Adrian</strong></span><br>
-      <a href="#" class="w3-bar-item w3-button"><i class="fa fa-envelope"></i></a>
-      <a href="#" class="w3-bar-item w3-button"><i class="fa fa-user"></i></a>
-      <a href="#" class="w3-bar-item w3-button"><i class="fa fa-cog"></i></a>
     </div>
   </div>
   <hr>
   <div class="w3-container">
-    <h5>Dashboard</h5>
+    <h5>Menu</h5>
   </div>
   <div class="w3-bar-block">
     <a class="w3-bar-item w3-button w3-padding-16" onclick="close_function()" title="close menu"><i class="fa fa-remove fa-fw"></i>  Close Menu</a>
-    <a href="#" class="w3-bar-item w3-button w3-padding w3-blue"><i class="fa fa-users fa-fw"></i>  Overview</a>
-    <a href="#" class="w3-bar-item w3-button w3-padding w3-blue"><i class="fa fa-search" aria-hidden="true"></i>  test</a>
-    <a href="#" class="w3-bar-item w3-button w3-padding w3-blue"><i class="fa fa-refresh" aria-hidden="true"></i>  refrsh</a>
-    <a href="#" class="w3-bar-item w3-button w3-padding w3-blue"><i class="fa fa-upload" aria-hidden="true"></i>  upload</a>
-
-    <a href="#" class="w3-bar-item w3-button w3-padding"><i class="fa fa-bell fa-fw"></i>  News</a>
-    <a href="#" class="w3-bar-item w3-button w3-padding"><i class="fa fa-university"></i>  General</a>
-    <a href="#" class="w3-bar-item w3-button w3-padding"><i class="fa fa-history fa-fw"></i>  History</a>
-    <a href="#" class="w3-bar-item w3-button w3-padding"><i class="fa fa-cog fa-fw"></i>  Settings</a><br><br>
+    <a href="#" class="w3-bar-item w3-button w3-padding"><i class="fa fa-users fa-fw"></i>  Overview</a>
+    <a href="#" class="w3-bar-item w3-button w3-padding"><i class="fa fa-search" aria-hidden="true"></i>  test</a>
+    <a href="#" class="w3-bar-item w3-button w3-padding"><i class="fa fa-refresh" aria-hidden="true"></i>  refrsh</a>
+    <a href="#" class="w3-bar-item w3-button w3-padding w3-blue"><i class="fa fa-download" aria-hidden="true"></i> download</a>
   </div>
 </nav>
 
@@ -47,7 +45,7 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
 <!-- !PAGE CONTENT! -->
 <div class="w3-main" style="margin-left:300px;" id="main">
   <a onclick="open_function()"><i class="fa fa-caret-square-o-right" aria-hidden="true"></i>Open Menu</a>
-  <a onclick="open_function()"><i class="fa fa-bar-chart" aria-hidden="true"></i></i>Open Menu</a>
+  <a onclick="open_function()"><i class="fa fa-line-chart" aria-hidden="true"></i>Open Menu</a>
 
   <!-- Header -->
   <header class="w3-container">
@@ -83,6 +81,9 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
         <h4>Settings</h4>
       </div>
     </div>
+  </div>
+  <div style="width: 700px;  display: inline-block;">
+      <canvas id="accGraph"></canvas>
   </div>
 
   <div class="w3-panel">
@@ -121,15 +122,32 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
   <hr>
 </div>
 <script>
-function close_function() {
-  document.getElementById("mySidebar").style.display = "none";
-  document.getElementById("main").style.marginLeft = "0";
-}
-
-function open_function() {
-  document.getElementById("mySidebar").style.display = "block";
-  document.getElementById("main").style.marginLeft = "300px";
-}
+  let accGraphCtx = document.querySelector("#accGraph");
+  accGraphCtx.width = window.innerWidth;
+  accGraphCtx.height = window.outerHeight;
+  accGraphCtx = accGraphCtx.getContext("2d");
+  let accChart = new Chart(accGraphCtx, {
+      type: "line",
+      data: {
+          labels:  [1, 2, 3] ,	// X axis data
+          datasets: [
+              {
+                  label: "",
+                  data: [1, 2, 3],			// Y Axis data
+                  borderColor: "#7e88c4",                     // color
+                  fill: false,
+                  lineTension: 0
+              }
+          ]
+      },
+      options: {
+          title: {
+              display: true,
+              text: 'AAPL'
+          },
+      }
+  });
 </script>
+
 </body>
 </html>

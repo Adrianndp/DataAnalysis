@@ -1,4 +1,4 @@
-from DataAnalizer import *
+from Algorithms.DataAnalizer import *
 
 stock_input = "AAPL"
 

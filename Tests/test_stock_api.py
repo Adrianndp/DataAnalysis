@@ -1,4 +1,4 @@
-from StockAPI import *
+from APIS.StockAPI import *
 
 stock_input = "AAPL"
 dummy_start_date = "2019-10-10"
