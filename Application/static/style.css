@@ -1,0 +1,12 @@
+* {
+    font-family: "Raleway", sans-serif
+}
+.container {
+    padding: 0.01em 16px
+}
+
+.light-grey {
+    background-color: #f1f1f1!important;
+    font-size: 15px;
+    line-height: 1.5;
+}
