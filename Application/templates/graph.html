@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+{% block content %}
+ <div class="container" style="width: 400px;  display: inline-block;">
+      <canvas id="accGraph"></canvas>
+  </div>
+  <hr>
+  <div class="container">
+    <h5>Is it a good trade?</h5>
+    <p>Low Risk</p>
+    <div class="grey">
+      <div class="container center padding green" style="width:25%">+25%</div>
+    </div>
+
+    <p>Medium Risk</p>
+    <div class="grey">
+      <div class="container center padding orange" style="width:50%">50%</div>
+    </div>
+
+    <p>High Risk</p>
+    <div class="grey">
+      <div class="container center padding red" style="width:75%">75%</div>
+    </div>
+  </div>
+  <hr>
+</div>
+<script>
+  let accGraphCtx = document.querySelector("#accGraph");
+  accGraphCtx.width = window.innerWidth;
+  accGraphCtx.height = window.outerHeight;
+  accGraphCtx = accGraphCtx.getContext("2d");
+  let accChart = new Chart(accGraphCtx, {
+      type: "line",
+      data: {
+          labels:  [2, 4, 3, 7, 12, 14, 9] ,	// X axis data
+          datasets: [
+              {
+                  label: "",
+                  data: [1, 5, 2, 3, 13, 5, 8],			// Y Axis data
+                  borderColor: "#7e88c4",                     // color
+                  fill: false,
+                  lineTension: 0
+              }
+          ]
+      },
+      options: {
+          title: {
+              display: true,
+              text: 'AAPL'
+          },
+      }
+  });
+</script>
+{% endblock  %}
+</body>
+</html>

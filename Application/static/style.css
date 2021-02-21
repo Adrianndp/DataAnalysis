@@ -3,9 +3,56 @@
     box-sizing: inherit;
 }
 .main {
-    margin-left: 300px;
     transition: margin-left .4s;
+}
+.clear {
+    content: "";
+    display: table;
+    clear: both;
+}
 
+.feed {
+    margin-top: 16px;
+    margin-bottom: 16px;
+    padding: 0.01em 16px;
+}
+
+.box {
+    display: block;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.margin-bottom {
+    margin-bottom: 16px!important;
+}
+.extra_large {
+    font-size: 48px!important
+}
+
+.sidebar2 {
+    height: 100%;
+    position: fixed !important;
+    overflow: auto;
+}
+
+.animate-left {
+    animation: animateleft 0.4s
+}
+
+
+.center {
+    text-align: center!important;
+}
+
+.padding {
+    padding: 8px 16px!important;
+}
+
+.row {
+    content: "";
+    display: table;
+    clear: both;
 }
 
 .container {
@@ -55,6 +102,10 @@
     color: #fff!important;
     background-color: #2196F3!important
 }
+.green {
+    color: #fff!important;
+    background-color: #4CAF50!important;
+}
 
 .menu {
     padding: 5px;
@@ -69,4 +120,5 @@
     position: fixed !important;
     z-index: 1;
     overflow: auto;
+    display: none;
 }

@@ -1,11 +1,21 @@
-from flask import Flask
+from flask import Flask, render_template
 
 app = Flask(__name__)
 
 
 @app.route('/')
-def hello_world():
-    return 'Hello, World!'
+def home():
+    return render_template("home.html")
+
+
+@app.route('/graph')
+def graph():
+    return render_template("graph.html")
+
+
+@app.route('/news')
+def news():
+    return render_template("news.html")
 
 
 if __name__ == '__main__':
