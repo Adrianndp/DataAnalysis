@@ -1,4 +1,6 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request, jsonify
+import Application.application as application
+
 
 app = Flask(__name__)
 
@@ -8,9 +10,12 @@ def home():
     return render_template("home.html")
 
 
-@app.route('/graph')
+@app.route('/graph', methods=['GET', 'POST'])
 def graph():
-    return render_template("graph.html")
+    if request.method == 'POST':
+        return application.get_close("AAPL", "2020-01-01", "2021.01.01")
+    else:
+        return render_template("graph.html")
 
 
 @app.route('/news')

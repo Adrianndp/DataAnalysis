@@ -1,14 +1,19 @@
 {% extends "base.html" %}
 <html lang="en">
+{% block content %}
 <head>
+    <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+    <script src="https://canvasjs.com/assets/script/jquery-1.11.1.min.js"></script>
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
 <body>
-{% block content %}
- <div class="container" style="width: 400px;  display: inline-block;">
-      <canvas id="accGraph"></canvas>
-  </div>
+
+<form action="{{ url_for('graph') }}" method="post" style="text-align: center">
+    <input type="text" name="projectFilepath">
+    <input type="submit">
+</form>
+<div id="chartContainer" style="height: 350px; width: 80%;"></div>
   <hr>
   <div class="container">
     <h5>Is it a good trade?</h5>
@@ -29,33 +34,7 @@
   </div>
   <hr>
 </div>
-<script>
-  let accGraphCtx = document.querySelector("#accGraph");
-  accGraphCtx.width = window.innerWidth;
-  accGraphCtx.height = window.outerHeight;
-  accGraphCtx = accGraphCtx.getContext("2d");
-  let accChart = new Chart(accGraphCtx, {
-      type: "line",
-      data: {
-          labels:  [2, 4, 3, 7, 12, 14, 9] ,	// X axis data
-          datasets: [
-              {
-                  label: "",
-                  data: [1, 5, 2, 3, 13, 5, 8],			// Y Axis data
-                  borderColor: "#7e88c4",                     // color
-                  fill: false,
-                  lineTension: 0
-              }
-          ]
-      },
-      options: {
-          title: {
-              display: true,
-              text: 'AAPL'
-          },
-      }
-  });
-</script>
+
 {% endblock  %}
 </body>
 </html>

@@ -16,3 +16,8 @@ def df_to_csv(stock, file_name, start_date=None, end_date=None):
         dataframe.to_csv(cwd, index=False, header=True)
     else:
         print("File already exists")
+
+
+def get_close(stock, start_date, end_date):
+    df = __initialize_stock(stock, start_date, end_date)
+    return df.to_html()
