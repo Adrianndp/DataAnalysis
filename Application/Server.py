@@ -9,12 +9,9 @@ def home():
     return render_template("home.html")
 
 
-@app.route('/graph', methods=['GET', 'POST'])
+@app.route('/graph', methods=['GET'])
 def graph():
-    if request.method == 'POST':
-        return application.get_graph_with_ema("AAPL", "2020-01-01", "2021.01.01")
-    else:
-        return render_template("graph.html")
+    return render_template("graph.html")
 
 
 @app.route('/news')
