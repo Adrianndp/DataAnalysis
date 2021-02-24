@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+<html lang="en">
+<body>
+{% block content %}
+<form action="{{ url_for('download') }}" method="post" style="text-align: center">
+    <input type="text" name="projectFilepath">
+    <input type="submit">
+</form>
+{% endblock %}
+</body>
+</html>

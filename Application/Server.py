@@ -9,7 +9,7 @@ def home():
     return render_template("home.html")
 
 
-@app.route('/graph', methods=['GET'])
+@app.route('/graph')
 def graph():
     return render_template("graph.html")
 
@@ -17,6 +17,14 @@ def graph():
 @app.route('/news')
 def news():
     return render_template("news.html")
+
+
+@app.route('/download', methods=['GET', 'POST'])
+def download():
+    if request.method == 'POST':
+        return application.df_to_csv("AAPL", "2020-01-01", "2021-01-01")
+    else:
+        return render_template("download.html")
 
 
 @app.route('/get_graph_api')
@@ -31,4 +39,4 @@ def get_graph_api():
 
 
 if __name__ == '__main__':
-    app.run(debug=True, port=5000)
+    app.run(debug=True, port=5000, host="localhost")
