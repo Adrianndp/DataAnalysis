@@ -123,6 +123,6 @@
     display: none;
 }
 #chart {
-    max-width: 650px;
+    width: 65%;
     margin: 35px auto;
 }

@@ -8,48 +8,31 @@ function menu() {
     }
 }
 
-function get_graph() {
+function get_graph(data) {
     let options = {
         chart: {
-            height: 350,
+            width: '100%',
             type: 'candlestick',
+            animations: {
+                enabled: false
+            },
         },
         series: [{
-            data: [{
-                x: "2020-02-01",
-                y: [6629.81, 6650.5, 6623.04, 6633.33]
-            },
-                {
-                    x: "2020-02-02",
-                    y: [6632.01, 6643.59, 6620, 6630.11]
-                },
-                {
-                    x: "2020-02-03",
-                    y: [6630.71, 6648.95, 6623.34, 6635.65]
-                },
-                {
-                    x: "2020-02-04",
-                    y: [6635.65, 6651, 6629.67, 6638.24]
-                },
-                {
-                    x: "2020-02-05",
-                    y: [6638.24, 6640, 6620, 6624.47]
-                },
-                {
-                    x: "2020-02-06",
-                    y: [6624.53, 6636.03, 6621.68, 6624.31]
-                }
-            ]
+            data: data
         }],
         title: {
             text: 'AAPL',
             align: 'left'
         },
+        tooltip: {
+            enabled: true,
+        },
         xaxis: {
-            interval: 1,
-            valueFormatString: "MMM"
+            type: 'datetime',
+            valueFormatString: "MMM DD"
         },
         yaxis: {
+            decimalsInFloat: 0,
             tooltip: {
                 enabled: true
             }
@@ -61,4 +44,29 @@ function get_graph() {
         options
     );
     chart.render();
+
 }
+
+function handle_data(data) {
+    let length = Object.keys(data.Date).length;
+    let filtered_data = [];
+    let object = {}
+    for (let i = length; i > 0; i--) {
+        object = {
+            x: new Date(data.Date[i]),
+            y: [data.Open[i], data.High[i], data.Low[i], data.Close[i]]
+        };
+        filtered_data.push(object);
+        object = {};
+    }
+    get_graph(filtered_data);
+}
+
+function fetch_data(stock) {
+    fetch(`http://localhost:5000/get_graph_api?stock=${stock}`)
+        .then(response => response.json())
+        .then(data => handle_data(data));
+}
+
+
+

@@ -3,9 +3,10 @@
 <body>
 {% block content %}
 <script src="../static/measurer.js"></script>
-<button style="display: block; margin: auto" onclick="get_graph()">Testing</button>
+<button style="display: block; margin: auto" onclick="fetch_data('AAPL')">Testing</button>
 <div id="chart"></div>
 <div style="text-align: center" id="chart-container"></div>
+
 {% endblock %}
 </body>
 </html>

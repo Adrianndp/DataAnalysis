@@ -13,18 +13,28 @@ const dataSource = {
         color: [
             {
                 minvalue: "0",
-                maxvalue: "50",
+                maxvalue: "20",
+                code: "#9b0f0b"
+            },
+            {
+                minvalue: "20",
+                maxvalue: "40",
                 code: "#F2726F"
             },
             {
-                minvalue: "50",
-                maxvalue: "75",
-                code: "#FFC533"
+                minvalue: "40",
+                maxvalue: "60",
+                code: "#f2dc6f"
             },
             {
-                minvalue: "75",
+                minvalue: "60",
+                maxvalue: "80",
+                code: "#53a276"
+            },
+            {
+                minvalue: "80",
                 maxvalue: "100",
-                code: "#62B58F"
+                code: "#0e753f"
             }
         ]
     },

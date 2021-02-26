@@ -1,5 +1,4 @@
 {% extends "base.html" %}
-<html lang="en">
 <body>
 {% block content %}
 <div class="feed">
@@ -16,11 +15,7 @@
         </div>
     </div>
 </div>
+<button onclick="fetch_data('AAPL')"> Testing fetching </button>
 </body>
-<script>
-    fetch('http://localhost:5000/get_graph_api?stock=AAPL')
-        .then(response => response.json())
-        .then(data => console.log(data));
-</script>
 {% endblock %}
 </html>
