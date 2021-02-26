@@ -50,14 +50,14 @@ const dataSource = {
             {
                 startvalue: "0",
                 displayvalue: "Sell",
-                thickness: "0",
+                thickness: "5",
                 color: "#f60909",
             },
             {
                 startvalue: "100",
                 displayvalue: "Buy",
-                thickness: "0",
-                color: "#072f03",
+                thickness: "5",
+                color: "#27771e",
             }
         ]
     }
@@ -67,7 +67,7 @@ FusionCharts.ready(function () {
     var myChart = new FusionCharts({
         type: "angulargauge",
         renderAt: "chart-container",
-        width: "30%",
+        width: "40%",
         height: "80%",
         dataFormat: "json",
         dataSource

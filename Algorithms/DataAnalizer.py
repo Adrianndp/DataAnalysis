@@ -26,8 +26,10 @@ def get_EMA(df, window_size=None, plot=False):
     close = df['Close']
     moving_average_list = df['Close'].rolling(window=window_size).mean()
     if not plot:
-        df["Moving average"] = moving_average_list
-        return df
+        dataframe = df.copy()
+        dataframe = dataframe[window_size:]
+        dataframe["EMA"] = moving_average_list
+        return dataframe
     else:
         data_to_plot = [close, moving_average_list]
         __plot(data_to_plot, "EMA")
