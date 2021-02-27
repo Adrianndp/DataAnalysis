@@ -69,9 +69,9 @@ def __plot(columns_to_plot, title):
         for row in columns_to_plot:
             plt.plot(row)
 
-    indexes = columns_to_plot[0].index.tolist()
-    index_list, intersections = get_intersections(columns_to_plot[0].tolist(), columns_to_plot[1].tolist(), indexes)
-    plt.plot(index_list, intersections, 'ro')
+    # indexes = columns_to_plot[0].index.tolist()
+    # index_list, intersections = get_intersections(columns_to_plot[0].tolist(), columns_to_plot[1].tolist(), indexes)
+    # plt.plot(index_list, intersections, 'ro')
 
     font = {'family': 'arial', 'color': 'white', 'weight': 'normal', 'size': 20}
     plt.title(title, fontdict=font)

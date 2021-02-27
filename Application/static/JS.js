@@ -8,13 +8,13 @@ function menu() {
     }
 }
 
-function get_graph(data, EMA, stock_title) {
+function get_graph(data, SMA, stock_title) {
     let options = {
         series: [
             {
-                name: 'EMA',
+                name: 'SMA',
                 type: 'line',
-                data: EMA
+                data: SMA
             },
             {
                 name: 'Price',
@@ -56,6 +56,7 @@ function get_graph(data, EMA, stock_title) {
         options
     );
     chart.render();
+    get_RSI();
     document.getElementById("button").style.display = "block";
     document.getElementById("stock_image").style.display = "block";
     document.getElementById('stock').value = "";
@@ -63,28 +64,28 @@ function get_graph(data, EMA, stock_title) {
 }
 
 function handle_data(data, stock_title, window_size) {
-    let ema_window_size = window_size;
+    let sma_window_size = window_size;
     let length = Object.keys(data.Date).length;
     let filtered_data = [];
-    let EMA = [];
+    let SMA = [];
     let object = {};
-    let ema_object = {};
-    for (let i = ema_window_size; i < length + ema_window_size; i++) {
+    let sma_object = {};
+    for (let i = sma_window_size; i < length + sma_window_size; i++) {
         object = {
             x: new Date(data.Date[i]),
             y: [data.Open[i], data.High[i], data.Low[i], data.Close[i]]
         };
         filtered_data.push(object);
         object = {};
-        ema_object = {
+        sma_object = {
             x: new Date(data.Date[i]),
-            y: data.EMA[i]
+            y: data.SMA[i]
 
         };
-        EMA.push(ema_object);
-        ema_object = {};
+        SMA.push(sma_object);
+        sma_object = {};
     }
-    get_graph(filtered_data, EMA, stock_title);
+    get_graph(filtered_data, SMA, stock_title);
 }
 
 function fetch_data(stock, window_size) {
@@ -107,4 +108,48 @@ function fetch_news_api(keyword) {
         .then(data => console.log(data));
 }
 
+function get_RSI() {
+    let options = {
+        chart: {
+            height: 280,
+            type: "area"
+        },
+        dataLabels: {
+            enabled: false
+        },
+        title: {
+            text: 'RSI',
+            align: 'left',
+        },
+        series: [
+            {
+                name: "Series 1",
+                data: [45, 52, 38, 45, 19, 23, 2]
+            }
+        ],
+        fill: {
+            type: "gradient",
+            gradient: {
+                shadeIntensity: 1,
+                opacityFrom: 0.7,
+                opacityTo: 0.9,
+                stops: [0, 90, 100]
+            }
+        },
+        xaxis: {
+            categories: [
+                "01 Jan",
+                "02 Jan",
+                "03 Jan",
+                "04 Jan",
+                "05 Jan",
+                "06 Jan",
+                "07 Jan"
+            ]
+        }
+    };
+
+    let chart = new ApexCharts(document.querySelector("#RSI"), options);
+    chart.render();
+}
 

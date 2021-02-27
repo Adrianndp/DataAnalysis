@@ -44,6 +44,7 @@ def get_linear_list_from_df(dataframe, property_given):
 
 
 RSI_data = get_RSI(df_input)
+print(RSI_data)
 
 # RSI_linear_list = get_linear_list_from_df(RSI_data, "RSI")
 # close_linear_list = get_linear_list_from_df(df, 'Close')
