@@ -19,43 +19,6 @@ def visualize_close(stock_name, time=None):
     __plot([df['Close']], "Close value")
 
 
-def get_EMA(df, window_size=None, plot=False):
-    if window_size is None:
-        # 8- and 20-day for day traders while the 50 and 200-day EMA for long term investors.
-        window_size = 20
-    close = df['Close']
-    moving_average_list = df['Close'].rolling(window=window_size).mean()
-    if not plot:
-        dataframe = df.copy()
-        dataframe = dataframe[window_size:]
-        dataframe["EMA"] = moving_average_list
-        return dataframe
-    else:
-        data_to_plot = [close, moving_average_list]
-        __plot(data_to_plot, "EMA")
-
-
-def get_RSI(df, window_size=None, plot=False):
-    if window_size is None:
-        window_size = 14
-    adj_close = df['Adj Close']
-    delta = adj_close.diff()
-    delta = delta[1:]
-    up, down = delta.copy(), delta.copy()
-    up[up < 0] = 0
-    down[down > 0] = 0
-    avg_gain = up.ewm(span=window_size).mean()
-    avg_loss = down.abs().ewm(span=window_size).mean()
-    RS = avg_gain / avg_loss
-    RSI = 100.0 - (100.0 / (1.0 + RS))
-    df['RSI'] = RSI
-    if plot:
-        __plot([df['RSI']], "RSI")
-    else:
-        df.drop(df.columns.difference(['Close', 'Adj Close', 'RSI']), 1, inplace=True)
-        return df
-
-
 def linear_regression(df, property_to_check=None, plot=False):
     dataframe = df.copy()
     dataframe.reset_index(level=0, inplace=True)

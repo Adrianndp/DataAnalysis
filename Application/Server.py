@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, jsonify, abort, make_response
+from flask import Flask, render_template, request, abort
 import Application.application as application
 
 app = Flask(__name__)
@@ -27,15 +27,17 @@ def download():
         return render_template("download.html")
 
 
-@app.route('/get_graph_api')
-def get_graph_api():
+@app.route('/get_<api>_api')
+def get_graph_api(api):
     stock = request.args.get('stock', None)
-    if not stock:
-        return abort(404, "Not stock was given")
-    if request.args.get("start_date"):
-        return jsonify(application.get_graph_with_ema(stock, request.args.get("start_date")))
-    return application.get_graph_with_ema(stock)
-    # return jsonify({"name": "a"})
+    start_date = request.args.get("start_date", None)
+    keyword = request.args.get("keyword", None)
+    if api == "news":
+        return application.get_news(keyword, start_date)
+    elif api == "graph":
+        return application.get_graph_with_ema(stock, start_date)
+    else:
+        return abort(500, "Bad request")
 
 
 if __name__ == '__main__':

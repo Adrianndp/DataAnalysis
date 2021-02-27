@@ -17,7 +17,7 @@ function get_graph(data, EMA, stock_title) {
                 data: EMA
             },
             {
-                name: 'candle',
+                name: 'Price',
                 type: 'candlestick',
                 data: data
             }],
@@ -27,6 +27,9 @@ function get_graph(data, EMA, stock_title) {
                 enabled: false
             },
             type: 'line',
+        },
+        tooltip: {
+            enabled: true,
         },
         stroke: {
             width: [3, 1]
@@ -39,7 +42,7 @@ function get_graph(data, EMA, stock_title) {
             type: 'datetime',
             valueFormatString: "MMM DD"
         },
-      
+
         yaxis: {
             decimalsInFloat: 0,
             tooltip: {
@@ -93,9 +96,15 @@ function fetch_data(stock, window_size) {
 
 
 function show_prediction() {
-     document.getElementById("stock_image").style.display = "none";
-     document.getElementById("chart-container").style.display = "block";
-     document.getElementById("link").style.display = "block";
+    document.getElementById("stock_image").style.display = "none";
+    document.getElementById("chart-container").style.display = "block";
+    document.getElementById("link").style.display = "block";
+}
+
+function fetch_news_api(keyword) {
+    fetch(`http://localhost:5000/get_news_api?keyword=${keyword}`)
+        .then(response => response.json())
+        .then(data => console.log(data));
 }
 
 

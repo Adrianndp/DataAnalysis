@@ -1,12 +1,12 @@
 import requests
-import json
+import Helper.date_format as date
 
 API_KEY = "b1836b964cec4509b16bc96eae9a21c5"
-search = "tesla"
-start_date = "2021-02-19"
-r = requests.get(f'http://newsapi.org/v2/everything?q={search}&from={start_date}&sortBy=publishedAt&apiKey={API_KEY}')
-json_data = json.loads(r.text)
-status_code = json_data['status']  # ok
-results = json_data['totalResults']
-# json_data['articles'][0].keys() = ['source', 'author', 'title', 'description', 'url', 'urlToImage', 'publishedAt', 'content']
 
+
+def get_news(keyword, start_date=None):
+    if start_date is None:
+        start_date = date.get_date_day(10)
+    request = requests.get(
+        f'http://newsapi.org/v2/everything?q={keyword}&from={start_date}&sortBy=publishedAt&apiKey={API_KEY}')
+    return request.json()
