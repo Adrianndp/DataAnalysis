@@ -1,8 +1,9 @@
 from Algorithms.DataAnalizer import __initialize_stock
-from Algorithms.MACD import get_SMA
+from Algorithms.MACD import get_EMA
 import Helper.date_format as date
 from APIS.NewsAPI import get_news
 from flask import abort
+from APIS.StockAPI import get_bigger_gainers
 
 
 def df_to_csv(stock, start_date=None, end_date=None):
@@ -10,14 +11,14 @@ def df_to_csv(stock, start_date=None, end_date=None):
     return dataframe.to_html()
 
 
-def get_graph_with_sma(stock, start_date=None):
+def get_graph_with_indicators(stock, start_date=None):
     if stock is None:
         return abort(404, "Not stock was given")
     if start_date is None:
         start_date = date.get_date_month(7)
     end_date = date.get_current_date()
     df = __initialize_stock(stock, start_date, end_date, index_date=True)
-    df_with_ema = get_SMA(df, plot=False)
+    df_with_ema = get_EMA(df, plot=False)
     return df_with_ema.to_json()
 
 
@@ -28,3 +29,9 @@ def get_news_api(keyword, start_date):
         start_date = date.get_date_day(5)
     return get_news(keyword, start_date)
 
+
+def get_top_gainers():
+    return get_bigger_gainers().to_json
+
+
+print(get_top_gainers())

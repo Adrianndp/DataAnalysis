@@ -8,13 +8,13 @@ function menu() {
     }
 }
 
-function get_graph(data, SMA, stock_title) {
+function get_graph(data, EMA, stock_title) {
     let options = {
         series: [
             {
-                name: 'SMA',
+                name: 'EMA',
                 type: 'line',
-                data: SMA
+                data: EMA
             },
             {
                 name: 'Price',
@@ -30,6 +30,28 @@ function get_graph(data, SMA, stock_title) {
         },
         tooltip: {
             enabled: true,
+            custom: function ({seriesIndex, dataPointIndex, w}) {
+                const o = w.globals.seriesCandleO[seriesIndex][dataPointIndex]
+                const h = w.globals.seriesCandleH[seriesIndex][dataPointIndex]
+                const l = w.globals.seriesCandleL[seriesIndex][dataPointIndex]
+                const c = w.globals.seriesCandleC[seriesIndex][dataPointIndex]
+                return (
+                    '<div class="apexcharts-tooltip-candlestick">' +
+                    '<div>Open: <span class="value">' +
+                    o +
+                    '</span></div>' +
+                    '<div>High: <span class="value">' +
+                    h +
+                    '</span></div>' +
+                    '<div>Low: <span class="value">' +
+                    l +
+                    '</span></div>' +
+                    '<div>Close: <span class="value">' +
+                    c +
+                    '</span></div>' +
+                    '</div>'
+                )
+            }
         },
         stroke: {
             width: [3, 1]
@@ -48,7 +70,7 @@ function get_graph(data, SMA, stock_title) {
             tooltip: {
                 enabled: true
             }
-        }
+        },
     }
     // -------------------------
     let chart = new ApexCharts(
@@ -67,9 +89,9 @@ function handle_data(data, stock_title, window_size) {
     let sma_window_size = window_size;
     let length = Object.keys(data.Date).length;
     let filtered_data = [];
-    let SMA = [];
+    let EMA = [];
     let object = {};
-    let sma_object = {};
+    let ema_object = {};
     for (let i = sma_window_size; i < length + sma_window_size; i++) {
         object = {
             x: new Date(data.Date[i]),
@@ -77,15 +99,15 @@ function handle_data(data, stock_title, window_size) {
         };
         filtered_data.push(object);
         object = {};
-        sma_object = {
+        ema_object = {
             x: new Date(data.Date[i]),
-            y: data.SMA[i]
+            y: data.EMA[i]
 
         };
-        SMA.push(sma_object);
-        sma_object = {};
+        EMA.push(ema_object);
+        ema_object = {};
     }
-    get_graph(filtered_data, SMA, stock_title);
+    get_graph(filtered_data, EMA, stock_title);
 }
 
 function fetch_data(stock, window_size) {

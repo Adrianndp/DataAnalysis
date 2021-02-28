@@ -53,3 +53,15 @@ def get_worst_performers():
 def get_market_cap(stock_name):
     market_dict = data.get_quote_yahoo(stock_name)['marketCap'].to_dict()
     return market_dict[stock_name]
+
+
+def get_dividend_share(stock, start_date):
+    return si.get_dividends(stock, start_date)
+
+
+def get_top_crypto():
+    return si.get_top_crypto()
+
+
+def get_cash_flow(stock):
+    return si.get_cash_flow(stock)

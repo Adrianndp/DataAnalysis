@@ -35,7 +35,7 @@ def get_graph_api(api):
     if api == "news":
         return application.get_news(keyword, start_date)
     elif api == "graph":
-        return application.get_graph_with_sma(stock, start_date)
+        return application.get_graph_with_indicators(stock, start_date)
     else:
         return abort(500, "Bad request")
 
