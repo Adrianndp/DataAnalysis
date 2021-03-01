@@ -1,5 +1,5 @@
 from Algorithms.DataAnalizer import __initialize_stock
-from Algorithms.MACD import get_EMA
+from Algorithms.Indicators import get_EMA
 import Helper.date_format as date
 from APIS.NewsAPI import get_news
 from flask import abort

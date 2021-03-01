@@ -91,3 +91,24 @@ def get_intersections(list_a, list_b, indexes):
     x_values = [indexes[intersections_and_index[i][1]] for i in range(len(intersections_and_index))]
     y_values = [intersections_and_index[i][0] for i in range(len(intersections_and_index))]
     return x_values, y_values
+
+
+def _get_wr(df, n_days):
+    """ Williams Overbought/Oversold Index
+
+    WMS=[(Hn—Ct)/(Hn—Ln)] ×100
+    Ct - the close price
+    Hn - N days high
+    Ln - N days low
+    :param df: data
+    :param n_days: N days
+    :return: None
+    """
+    n_days = int(n_days)
+    ln = df['Low'].rolling(min_periods=1, window=n_days,
+                           center=False).min()
+
+    hn = df['High'].rolling(min_periods=1, window=n_days,
+                            center=False).max()
+    column_name = 'wr_{}'.format(n_days)
+    df[column_name] = (hn - df['Close']) / (hn - ln) * 100
