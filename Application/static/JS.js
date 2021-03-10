@@ -8,7 +8,7 @@ function menu() {
     }
 }
 
-function get_graph(data, EMA, stock_title, RSI, date_list) {
+function get_graph(data, EMA, stock_title, RSI) {
     let options = {
         series: [
             {
@@ -78,7 +78,7 @@ function get_graph(data, EMA, stock_title, RSI, date_list) {
         options
     );
     chart.render();
-    get_RSI(RSI, date_list);
+    get_RSI(RSI);
     document.getElementById("button").style.display = "block";
     document.getElementById("stock_image").style.display = "block";
     document.getElementById('stock').value = "";
@@ -88,33 +88,13 @@ function get_graph(data, EMA, stock_title, RSI, date_list) {
 function handle_data(data, stock_title, window_size) {
     let sma_window_size = window_size;
     let length = Object.keys(data.Date).length;
-    let filtered_data = [];
-    let EMA = [];
-    let RSI = [];
-    let object = {};
-    let ema_object = {};
-    let date_list = [];
-
+    let filtered_data = [], EMA = [], RSI = [];
     for (let i = sma_window_size; i < length + sma_window_size; i++) {
-        object = {
-            x: new Date(data.Date[i]),
-            y: [data.Open[i], data.High[i], data.Low[i], data.Close[i]]
-        };
-        filtered_data.push(object);
-        object = {};
-        ema_object = {
-            x: new Date(data.Date[i]),
-            y: data.EMA[i]
-
-        };
-        EMA.push(ema_object);
-        ema_object = {};
-        RSI.push(data.RSI[i]);
-        date_list.push(data.Date[i].getTime());
-
-
+        filtered_data.push({x: new Date(data.Date[i]), y: [data.Open[i], data.High[i], data.Low[i], data.Close[i]]});
+        EMA.push({x: new Date(data.Date[i]), y: data.EMA[i]});
+        RSI.push({x: new Date(data.Date[i]), y: data.RSI[i]});
     }
-    get_graph(filtered_data, EMA, stock_title, RSI, date_list);
+    get_graph(filtered_data, EMA, stock_title, RSI);
 }
 
 function fetch_data(stock, window_size) {
@@ -137,12 +117,12 @@ function fetch_news_api(keyword) {
         .then(data => console.log(data));
 }
 
-function get_RSI(RSI, dates) {
+function get_RSI(RSI) {
     let options = {
         chart: {
             height: 280,
             type: "area",
-             animations: {
+            animations: {
                 enabled: false
             },
         },
@@ -170,8 +150,21 @@ function get_RSI(RSI, dates) {
             }
         },
         xaxis: {
-            categories: dates
-        }
+            type: 'datetime',
+            tickAmount: 6,
+        },
+        yaxis: {
+            decimalsInFloat: 0,
+            tooltip: {
+                enabled: true
+            }
+        },
+        tooltip: {
+            x: {
+                format: 'dd MMM yyyy'
+            }
+        },
+
     };
 
     let chart = new ApexCharts(document.querySelector("#RSI"), options);
