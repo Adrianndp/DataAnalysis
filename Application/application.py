@@ -1,5 +1,5 @@
 from Algorithms.DataAnalizer import __initialize_stock
-from Algorithms.Indicators import get_EMA
+from Algorithms.Indicators import get_EMA, get_RSI_with_library
 import Helper.date_format as date
 from APIS.NewsAPI import get_news
 from flask import abort
@@ -15,11 +15,19 @@ def get_graph_with_indicators(stock, start_date=None):
     if stock is None:
         return abort(404, "Not stock was given")
     if start_date is None:
-        start_date = date.get_date_month(7)
+        start_date = date.get_date_month(4)
     end_date = date.get_current_date()
     df = __initialize_stock(stock, start_date, end_date, index_date=True)
-    df_with_ema = get_EMA(df, plot=False)
-    return df_with_ema.to_json()
+    df = get_EMA(df, plot=False)
+    df = get_RSI_with_library(df)
+    df.reset_index(level=0, inplace=True)
+    upper = ["rsi", "ema"]
+    for col in df.columns:
+        if col in upper:
+            df = df.rename(columns={col: col.upper()})
+        else:
+            df = df.rename(columns={col: col.capitalize()})
+    return df.to_json()
 
 
 def get_news_api(keyword, start_date):
@@ -34,4 +42,3 @@ def get_top_gainers():
     return get_bigger_gainers().to_json
 
 
-print(get_top_gainers())

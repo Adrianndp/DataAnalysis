@@ -4,7 +4,7 @@ import stockstats
 
 stock = "AAPL"
 start_date = date.get_date_month(6)
-df_input = __initialize_stock(stock, start_date=start_date)
+df_input = __initialize_stock(stock, start_date=start_date, index_date=True)
 
 
 def get_EMA(df, window_size=None, plot=False):
@@ -67,11 +67,13 @@ def get_RSI(df, window_size=None, plot=False):
         return df
 
 
-def get_RSI_with_library(df):
+def get_RSI_with_library(df, plot=False):
     stock_df = stockstats.StockDataFrame.retype(df)
     df['rsi'] = stock_df['rsi_14']
-
-    __plot([df['rsi']], "RSI")
+    if plot:
+        __plot([df['rsi']], "RSI")
+    else:
+        return df
 
 
 def get_bollinger_bands(df, period=None, multiplier=None):
@@ -84,10 +86,8 @@ def get_bollinger_bands(df, period=None, multiplier=None):
     # 20-period Simple Moving Average minus 2 times the 20-period rolling standard deviation
     df['LowerBand'] = df['Close'].rolling(period).mean() - df['Close'].rolling(period).std() * multiplier
     __plot([df['Close'], df['UpperBand'], df['LowerBand']], "Bollinger Bands")
-    # plt.rcParams['figure.figsize'] = [12, 7]
-    # plt.rc('font', size=14)
-    # plt.plot(df['Close'], label="S&P 500")
     # plt.plot(df['UpperBand'], label="Upper Bollinger Band")
     # plt.plot(df['LowerBand'], label="Lower Bollinger Band")
-    # plt.legend()
-    # plt.show()
+
+
+# get_bollinger_bands(df_input)

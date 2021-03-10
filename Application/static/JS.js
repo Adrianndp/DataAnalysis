@@ -8,7 +8,7 @@ function menu() {
     }
 }
 
-function get_graph(data, EMA, stock_title) {
+function get_graph(data, EMA, stock_title, RSI, date_list) {
     let options = {
         series: [
             {
@@ -78,7 +78,7 @@ function get_graph(data, EMA, stock_title) {
         options
     );
     chart.render();
-    get_RSI();
+    get_RSI(RSI, date_list);
     document.getElementById("button").style.display = "block";
     document.getElementById("stock_image").style.display = "block";
     document.getElementById('stock').value = "";
@@ -90,8 +90,11 @@ function handle_data(data, stock_title, window_size) {
     let length = Object.keys(data.Date).length;
     let filtered_data = [];
     let EMA = [];
+    let RSI = [];
     let object = {};
     let ema_object = {};
+    let date_list = [];
+
     for (let i = sma_window_size; i < length + sma_window_size; i++) {
         object = {
             x: new Date(data.Date[i]),
@@ -106,8 +109,12 @@ function handle_data(data, stock_title, window_size) {
         };
         EMA.push(ema_object);
         ema_object = {};
+        RSI.push(data.RSI[i]);
+        date_list.push(data.Date[i].getTime());
+
+
     }
-    get_graph(filtered_data, EMA, stock_title);
+    get_graph(filtered_data, EMA, stock_title, RSI, date_list);
 }
 
 function fetch_data(stock, window_size) {
@@ -130,11 +137,14 @@ function fetch_news_api(keyword) {
         .then(data => console.log(data));
 }
 
-function get_RSI() {
+function get_RSI(RSI, dates) {
     let options = {
         chart: {
             height: 280,
-            type: "area"
+            type: "area",
+             animations: {
+                enabled: false
+            },
         },
         dataLabels: {
             enabled: false
@@ -146,7 +156,8 @@ function get_RSI() {
         series: [
             {
                 name: "Series 1",
-                data: [45, 52, 38, 45, 19, 23, 2]
+                data: RSI,
+                decimalsInFloat: 0,
             }
         ],
         fill: {
@@ -159,15 +170,7 @@ function get_RSI() {
             }
         },
         xaxis: {
-            categories: [
-                "01 Jan",
-                "02 Jan",
-                "03 Jan",
-                "04 Jan",
-                "05 Jan",
-                "06 Jan",
-                "07 Jan"
-            ]
+            categories: dates
         }
     };
 
