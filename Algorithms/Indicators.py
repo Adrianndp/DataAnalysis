@@ -2,7 +2,7 @@ from Algorithms.DataAnalizer import __initialize_stock, __plot
 from Helper import date_format as date
 import stockstats
 
-stock = "AAPL"
+stock = "MDB"
 start_date = date.get_date_month(6)
 df_input = __initialize_stock(stock, start_date=start_date, index_date=True)
 
@@ -88,6 +88,3 @@ def get_bollinger_bands(df, period=None, multiplier=None):
     __plot([df['Close'], df['UpperBand'], df['LowerBand']], "Bollinger Bands")
     # plt.plot(df['UpperBand'], label="Upper Bollinger Band")
     # plt.plot(df['LowerBand'], label="Lower Bollinger Band")
-
-
-# get_bollinger_bands(df_input)

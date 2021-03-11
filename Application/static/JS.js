@@ -8,7 +8,7 @@ function menu() {
     }
 }
 
-function get_graph(data, EMA, stock_title, RSI) {
+function get_graph(data, EMA, stock_title, RSI, range) {
     let options = {
         series: [
             {
@@ -27,6 +27,11 @@ function get_graph(data, EMA, stock_title, RSI) {
                 enabled: false
             },
             type: 'line',
+            events: {
+                beforeZoom: function (ctx) {
+                    ctx.w.config.xaxis.range = undefined
+                }
+            }
         },
         tooltip: {
             enabled: true,
@@ -62,7 +67,8 @@ function get_graph(data, EMA, stock_title, RSI) {
         },
         xaxis: {
             type: 'datetime',
-            valueFormatString: "MMM DD"
+            valueFormatString: "MMM DD",
+            range: range,
         },
 
         yaxis: {
@@ -78,7 +84,7 @@ function get_graph(data, EMA, stock_title, RSI) {
         options
     );
     chart.render();
-    get_RSI(RSI);
+    get_RSI(RSI, range);
     document.getElementById("button").style.display = "block";
     document.getElementById("stock_image").style.display = "block";
     document.getElementById('stock').value = "";
@@ -94,7 +100,11 @@ function handle_data(data, stock_title, window_size) {
         EMA.push({x: new Date(data.Date[i]), y: data.EMA[i]});
         RSI.push({x: new Date(data.Date[i]), y: data.RSI[i]});
     }
-    get_graph(filtered_data, EMA, stock_title, RSI);
+    let max = new Date().getTime()
+    let min = new Date("2020-11-11").getTime() // timestamp 90 days before
+    // console.log(data.zoom_range[0])
+    let range = max - min
+    get_graph(filtered_data, EMA, stock_title, RSI, range);
 }
 
 function fetch_data(stock, window_size) {
@@ -117,7 +127,7 @@ function fetch_news_api(keyword) {
         .then(data => console.log(data));
 }
 
-function get_RSI(RSI) {
+function get_RSI(RSI, range) {
     let options = {
         chart: {
             height: 280,
@@ -125,6 +135,11 @@ function get_RSI(RSI) {
             animations: {
                 enabled: false
             },
+            events: {
+                beforeZoom: function (ctx) {
+                    ctx.w.config.xaxis.range = undefined
+                }
+            }
         },
         dataLabels: {
             enabled: false
@@ -152,6 +167,7 @@ function get_RSI(RSI) {
         xaxis: {
             type: 'datetime',
             tickAmount: 6,
+            range: range,
         },
         yaxis: {
             decimalsInFloat: 0,
