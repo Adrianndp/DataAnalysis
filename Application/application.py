@@ -28,13 +28,11 @@ def get_graph_with_indicators(stock, start_date=None):
             df = df.rename(columns={col: col.upper()})
         else:
             df = df.rename(columns={col: col.capitalize()})
-    # df.drop(['Rs_14', 'Rsi_14', 'Closepm_14_smma', 'Closepm', 'Closenm_14_smma', 'Closenm',
-    #           'Close_-1_s', 'Close_-1_d'], axis=1, inplace=True)
-    # print(df)
-    # df = json.loads(df.to_json())
-    #  df['zoom_range'] = date.get_date_month(4)
-    # return json.dumps(df)
-    return df.to_json()
+    df.drop(['Rs_14', 'Rsi_14', 'Closepm_14_smma', 'Closepm', 'Closenm_14_smma', 'Closenm',
+             'Close_-1_s', 'Close_-1_d'], axis=1, inplace=True)
+    df = json.loads(df.to_json())
+    df['zoom_range'] = date.get_date_month(4)
+    return json.dumps(df)
 
 
 def get_news_api(keyword, start_date):

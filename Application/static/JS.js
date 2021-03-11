@@ -35,11 +35,11 @@ function get_graph(data, EMA, stock_title, RSI, range) {
         },
         tooltip: {
             enabled: true,
-            custom: function ({seriesIndex, dataPointIndex, w}) {
-                const o = w.globals.seriesCandleO[seriesIndex][dataPointIndex]
-                const h = w.globals.seriesCandleH[seriesIndex][dataPointIndex]
-                const l = w.globals.seriesCandleL[seriesIndex][dataPointIndex]
-                const c = w.globals.seriesCandleC[seriesIndex][dataPointIndex]
+            custom: function ({dataPointIndex, w}) {
+                const o = w.globals.seriesCandleO[1][dataPointIndex]
+                const h = w.globals.seriesCandleH[1][dataPointIndex]
+                const l = w.globals.seriesCandleL[1][dataPointIndex]
+                const c = w.globals.seriesCandleC[1][dataPointIndex]
                 return (
                     '<div class="apexcharts-tooltip-candlestick">' +
                     '<div>Open: <span class="value">' +
@@ -101,8 +101,7 @@ function handle_data(data, stock_title, window_size) {
         RSI.push({x: new Date(data.Date[i]), y: data.RSI[i]});
     }
     let max = new Date().getTime()
-    let min = new Date("2020-11-11").getTime() // timestamp 90 days before
-    // console.log(data.zoom_range[0])
+    let min = new Date(data.zoom_range).getTime()
     let range = max - min
     get_graph(filtered_data, EMA, stock_title, RSI, range);
 }
