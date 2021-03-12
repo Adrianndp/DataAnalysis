@@ -9,6 +9,7 @@ function menu() {
 }
 
 function get_graph(data, EMA, stock_title, RSI, range) {
+    document.getElementById("stock_image").style.display = "none";
     let options = {
         series: [
             {
@@ -85,10 +86,6 @@ function get_graph(data, EMA, stock_title, RSI, range) {
     );
     chart.render();
     get_RSI(RSI, range);
-    document.getElementById("button").style.display = "block";
-    document.getElementById("stock_image").style.display = "block";
-    document.getElementById('stock').value = "";
-
 }
 
 function handle_data(data, stock_title, window_size) {
@@ -113,18 +110,6 @@ function fetch_data(stock, window_size) {
         .then(data => handle_data(data, stock, window_size));
 }
 
-
-function show_prediction() {
-    document.getElementById("stock_image").style.display = "none";
-    document.getElementById("chart-container").style.display = "block";
-    document.getElementById("link").style.display = "block";
-}
-
-function fetch_news_api(keyword) {
-    fetch(`http://localhost:5000/get_news_api?keyword=${keyword}`)
-        .then(response => response.json())
-        .then(data => console.log(data));
-}
 
 function get_RSI(RSI, range) {
     let options = {

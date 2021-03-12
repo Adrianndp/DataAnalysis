@@ -139,7 +139,7 @@
 }
 
 #stock_image {
-    display: none;
+    display: block;
     margin: auto;
 }
 
