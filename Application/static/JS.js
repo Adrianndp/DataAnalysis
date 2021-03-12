@@ -180,11 +180,12 @@ function get_RSI(RSI, range) {
     chart.render();
 }
 
-function show_top_gainers() {
-    if (document.getElementById('top_gainers').style.display === "none") {
-        document.getElementById('top_gainers').style.display = "table";
-    }
-    else {
-        document.getElementById('top_gainers').style.display = "none";
-    }
+function show_table(id_input, id) {
+  let checkBox = document.getElementById(id_input);
+  if (checkBox.checked === true){
+      document.getElementById(id).style.display = "block";
+  }
+  else {
+      document.getElementById(id).style.display = "none";
+  }
 }

@@ -6,15 +6,18 @@
 </head>
 <body>
 {% block content %}
+<div style="margin: 50px">
 <div class="form-group">
     <input class="form-field" name="statistic" id="statistic" placeholder="Search Ticker stats"><br>
     <span style="display: inline;"><i class="fa fa-search" aria-hidden="true"></i></span>
 </div>
-
-<div class="top_gainers">
-<h3 onclick="show_top_gainers()"><i class="fa fa-caret-square-o-down" aria-hidden="true"></i>  Show Top gainers today </h3>
 </div>
-<table id="top_gainers" class="styled-table" style="display: none">
+
+
+<label class="labels_stats">
+  <input id="gainers_input" type="checkbox" class="tables_div" onclick="show_table('gainers_input', 'gainers')"/> Show Top Gainers today
+  <div id="gainers" style="display: none">
+<table id="top_gainers" class="styled-table">
     <thead>
     <tr>
         <th>Symbol</th>
@@ -48,6 +51,17 @@
     <!-- and so on... -->
     </tbody>
 </table>
+</div>
+</label>
+
+<label class="labels_stats">
+  <input id="id_losers" type="checkbox" class="tables_div" /> Show Top Losers today
+</label>
+
+<label class="labels_stats">
+  <input id="id_most_actives" type="checkbox" class="tables_div" /> Show Most Active today
+</label>
+
 {% endblock %}
 </body>
 </html>
