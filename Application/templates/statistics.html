@@ -8,59 +8,49 @@
 {% block content %}
 <div style="margin: 50px">
 <div class="form-group">
-    <input class="form-field" name="statistic" id="statistic" placeholder="Search Ticker stats"><br>
+    <input class="form-field" name="statistic" id="statistic" placeholder="Ticker"><br>
     <span style="display: inline;"><i class="fa fa-search" aria-hidden="true"></i></span>
 </div>
 </div>
 
 
-<label class="labels_stats">
-  <input id="gainers_input" type="checkbox" class="tables_div" onclick="show_table('gainers_input', 'gainers')"/> Show Top Gainers today
-  <div id="gainers" style="display: none">
-<table id="top_gainers" class="styled-table">
-    <thead>
-    <tr>
-        <th>Symbol</th>
-        <th>Name</th>
-        <th>Price</th>
-        <th>Change</th>
-        <th>Change %</th>
-        <th>Volume</th>
-        <th>Market Cap</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr>
-        <td>AAPL</td>
-        <td>Apple</td>
-        <th>5</th>
-        <th>5</th>
-        <th>5</th>
-        <th>5</th>
-        <th>5</th>
-    </tr>
-    <tr class="active-row">
-        <td>MSFT</td>
-        <td>Microsoft</td>
-        <th>5</th>
-        <th>5</th>
-        <th>5</th>
-        <th>5</th>
-        <th>5</th>
-    </tr>
-    <!-- and so on... -->
-    </tbody>
-</table>
+<h3 id="tittle_gainers" class="table_titles" onclick="show_table('gainers', 'tittle_gainers')"> Show Top Gainers today  <i class="fa fa-caret-square-o-down" aria-hidden="true"></i></h3>
+<div id="gainers" style="display: none">
+    <table id="top_gainers" class="styled-table">
+        <thead>
+        <tr>
+            <th>Symbol</th>
+            <th>Name</th>
+            <th>Price</th>
+            <th>Change</th>
+            <th>Change %</th>
+            <th>Volume</th>
+            <th>Market Cap</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>AAPL</td>
+            <td>Apple</td>
+            <th>5</th>
+            <th>5</th>
+            <th>5</th>
+            <th>5</th>
+            <th>5</th>
+        </tr>
+        <tr class="active-row">
+            <td>MSFT</td>
+            <td>Microsoft</td>
+            <th>5</th>
+            <th>5</th>
+            <th>5</th>
+            <th>5</th>
+            <th>5</th>
+        </tr>
+        <!-- and so on... -->
+        </tbody>
+    </table>
 </div>
-</label>
-
-<label class="labels_stats">
-  <input id="id_losers" type="checkbox" class="tables_div" /> Show Top Losers today
-</label>
-
-<label class="labels_stats">
-  <input id="id_most_actives" type="checkbox" class="tables_div" /> Show Most Active today
-</label>
 
 {% endblock %}
 </body>

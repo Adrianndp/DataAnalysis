@@ -190,13 +190,9 @@
     color: #2196F3;
 }
 
-.tables_div {
-    color: #13466f;
-    margin-top: 20px;
+.table_titles {
     margin-left: 50px;
-}
-
-.labels_stats {
-    margin-bottom: 15px;
-    display: block;
+    color: #99a5c8;
+    cursor: pointer;
+    max-width: max-content;
 }

@@ -180,12 +180,12 @@ function get_RSI(RSI, range) {
     chart.render();
 }
 
-function show_table(id_input, id) {
-  let checkBox = document.getElementById(id_input);
-  if (checkBox.checked === true){
-      document.getElementById(id).style.display = "block";
-  }
-  else {
-      document.getElementById(id).style.display = "none";
-  }
+function show_table(id, tittle) {
+    if (document.getElementById(id).style.display === "none") {
+        document.getElementById(id).style.display = "block";
+        document.getElementById(tittle).style.color = '#162f7a';
+    } else {
+        document.getElementById(id).style.display = "none";
+        document.getElementById(tittle).style.color = '#99a5c8';
+    }
 }
