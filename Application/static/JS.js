@@ -10,17 +10,18 @@ function menu() {
 
 function get_graph(data, EMA, stock_title, RSI, range) {
     document.getElementById("stock_image").style.display = "none";
+    document.getElementById('stock').value = "";
     let options = {
         series: [
             {
                 name: 'EMA',
                 type: 'line',
-                data: EMA
+                data: EMA,
             },
             {
                 name: 'Price',
                 type: 'candlestick',
-                data: data
+                data: data,
             }],
         chart: {
             width: '100%',
@@ -34,6 +35,7 @@ function get_graph(data, EMA, stock_title, RSI, range) {
                 }
             }
         },
+        colors: ["#026d63"],
         tooltip: {
             enabled: true,
             custom: function ({dataPointIndex, w}) {
@@ -60,7 +62,9 @@ function get_graph(data, EMA, stock_title, RSI, range) {
             }
         },
         stroke: {
-            width: [3, 1]
+            width: [3, 1],
+            colors: ['#009688']
+
         },
         title: {
             text: stock_title,
@@ -125,6 +129,7 @@ function get_RSI(RSI, range) {
                 }
             }
         },
+        colors: ["#026d63"],
         dataLabels: {
             enabled: false
         },
@@ -134,7 +139,7 @@ function get_RSI(RSI, range) {
         },
         series: [
             {
-                name: "Series 1",
+                name: "RSI Index",
                 data: RSI,
                 decimalsInFloat: 0,
             }
@@ -146,7 +151,11 @@ function get_RSI(RSI, range) {
                 opacityFrom: 0.7,
                 opacityTo: 0.9,
                 stops: [0, 90, 100]
-            }
+            },
+            colors: ['#009688']
+        },
+        stroke: {
+            colors: ['#009688']
         },
         xaxis: {
             type: 'datetime',
@@ -171,3 +180,11 @@ function get_RSI(RSI, range) {
     chart.render();
 }
 
+function show_top_gainers() {
+    if (document.getElementById('top_gainers').style.display === "none") {
+        document.getElementById('top_gainers').style.display = "table";
+    }
+    else {
+        document.getElementById('top_gainers').style.display = "none";
+    }
+}

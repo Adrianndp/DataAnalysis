@@ -187,6 +187,8 @@
     color: #2196F3;
 }
 
-.title-stats {
+.top_gainers {
     margin: 30px;
+    cursor: pointer;
+    color: #13466f;
 }

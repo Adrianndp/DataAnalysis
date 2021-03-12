@@ -2,23 +2,28 @@
 <html lang="en">
 <body>
 {% block content %}
-
-<div class="form-group">
-    <input class="form-field" name="stock" id="stock" placeholder="Ticker"><br>
+<div  class="form-group" >
+    <input oninput="let p=this.selectionStart;this.value=this.value.toUpperCase();this.setSelectionRange(p, p);"
+           class="form-field" name="stock" id="stock" placeholder="Ticker"><br>
     <span style="display: inline;" onclick="fetch_data(document.getElementById('stock').value, 20)"><i
             class="fa fa-search" aria-hidden="true"></i></span>
 </div>
-
-
 <div id="chart"></div>
-
 <div id="RSI"></div>
-
-
 <img id="stock_image" src="../static/stock.svg" width="300" height="300">
-
-
-<a id="link" href="{{ url_for('home') }}"> How this prediction works?</a>
+<script>
+    document.documentElement.style.setProperty('--group-border-focus', '#009688');
+    document.documentElement.style.setProperty('--input-border-focus', '#009688');
+    document.documentElement.style.setProperty('--group-background-focus', '#46bcb2');
+    document.documentElement.style.setProperty('--input-placeholder', '#9cbab7');
+    document.documentElement.style.setProperty('--group-background', '#ebfcfc');
+    document.documentElement.style.setProperty('--group-color', '#92b0ad');
+    document.documentElement.style.setProperty('--group-color-focus', '#fdfdfd');
+    document.documentElement.style.setProperty('--input-color', '#92b0ad');
+    document.documentElement.style.setProperty('--input-border', '#bce3e1');
+    document.documentElement.style.setProperty('--input-background', 'white');
+    document.documentElement.style.setProperty('--group-border', '#b9cfcd');
+</script>
 {% endblock %}
 </body>
 </html>

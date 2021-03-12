@@ -14,7 +14,7 @@ def graph():
     return render_template("graph.html")
 
 
-@app.route('/news')
+@app.route('/statistics')
 def statistics():
     return render_template("statistics.html")
 

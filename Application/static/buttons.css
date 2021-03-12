@@ -1,7 +1,7 @@
 :root {
     --input-color: #99a3ba;
     --input-border: #cdd9ed;
-    --input-background: #fff;
+    --input-background: #ffffff;
     --input-placeholder: #cbd1dc;
     --input-border-focus: #275efe;
     --group-color: var(--input-color);
