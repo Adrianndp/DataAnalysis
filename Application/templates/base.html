@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="../static/style.css">
+    <link rel="stylesheet" href="../static/buttons.css">
     <script src="https://cdn.jsdelivr.net/npm/apexcharts@latest"></script>
     <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
     <script src="https://canvasjs.com/assets/script/jquery-1.11.1.min.js"></script>
@@ -34,6 +35,8 @@
         <a href="#" class="w3-bar-item w3-button padding blue"><i class="fa fa-cog fa-fw" aria-hidden="true"></i>
             Settings</a>
     </div>
+    <a href="#" class="w3-bar-item w3-button padding"><i class="fa fa-question-circle" aria-hidden="true"></i> Help and Support</a>
+
 </nav>
 
 
@@ -51,11 +54,11 @@
                 <h4>Home</h4>
             </div>
         </a>
-        <a href="{{ url_for('news') }}" class="w3-quarter box">
+        <a href="{{ url_for('statistics') }}" class="w3-quarter box">
             <div class="container blue padding-16">
                 <div class="w3-left"><i class="fa fa-newspaper-o extra_large"></i></div>
                 <div class="clear"></div>
-                <h4>News</h4>
+                <h4>Statistics</h4>
             </div>
         </a>
         <a href="{{ url_for('graph') }}" class="w3-quarter box">

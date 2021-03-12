@@ -16,7 +16,7 @@ def get_graph_with_indicators(stock, start_date=None):
     if stock is None:
         return abort(404, "Not stock was given")
     if start_date is None:
-        start_date = date.get_date_month(5)
+        start_date = date.get_date_month(10)
     end_date = date.get_current_date()
     df = __initialize_stock(stock, start_date, end_date, index_date=True)
     df = get_EMA(df, plot=False)

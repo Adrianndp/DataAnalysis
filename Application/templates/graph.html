@@ -3,13 +3,14 @@
 <body>
 {% block content %}
 <script src="../static/measurer.js"></script>
-<link rel="stylesheet" href="../static/buttons.css">
 
 <div class="form-group">
     <input class="form-field" name="stock" id="stock" placeholder="Ticker"><br>
     <span style="display: inline;" onclick="fetch_data(document.getElementById('stock').value, 20)"><i
             class="fa fa-search" aria-hidden="true"></i></span>
 </div>
+
+
 <div id="chart"></div>
 
 <div id="RSI"></div>

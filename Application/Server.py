@@ -15,8 +15,8 @@ def graph():
 
 
 @app.route('/news')
-def news():
-    return render_template("news.html")
+def statistics():
+    return render_template("statistics.html")
 
 
 @app.route('/download', methods=['GET', 'POST'])
