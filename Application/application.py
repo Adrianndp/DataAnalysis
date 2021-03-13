@@ -18,7 +18,12 @@ def get_graph_with_indicators(stock, start_date=None):
     if start_date is None:
         start_date = date.get_date_month(10)
     end_date = date.get_current_date()
-    df = __initialize_stock(stock, start_date, end_date, index_date=True)
+    try:
+        df = __initialize_stock(stock, start_date, end_date, index_date=True)
+    except:
+        return
+    if df is None:
+        abort(404,  f"No data fetched for symbol {stock}")
     df = get_EMA(df, plot=False)
     df = get_RSI_with_library(df)
     df.reset_index(level=0, inplace=True)
@@ -45,3 +50,5 @@ def get_news_api(keyword, start_date):
 
 def get_top_gainers():
     return get_bigger_gainers().to_json()
+
+

@@ -27,7 +27,7 @@ def get_data(stock_name, start_date, end_date=None, head=None, index_date=False,
             return stock_data.head(90)
         return stock_data
     except Exception as p:
-        print(f'Error during parsing data. Reason: {p}')
+        # print(f'Error during parsing data. Reason: {p}')
         return
 
 
@@ -65,4 +65,6 @@ def get_top_crypto():
 
 def get_cash_flow(stock):
     return si.get_cash_flow(stock)
+
+
 

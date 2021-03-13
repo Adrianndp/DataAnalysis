@@ -74,7 +74,7 @@
     margin-bottom: 0;
 }
 
-.form-group > span {
+.form-group > button {
     text-align: center;
     padding: 8px 12px;
     font-size: 14px;
@@ -85,9 +85,14 @@
     transition: background 0.3s ease, border 0.3s ease, color 0.3s ease;
 }
 
-.form-group:focus-within > span {
+.form-group:focus-within > button {
     color: var(--group-color-focus);
     background: var(--group-background-focus);
     border-color: var(--group-border-focus);
 }
 
+.error {
+    text-align: center;
+    color: red;
+    font-size: large;
+}

@@ -143,6 +143,11 @@
     margin: auto;
 }
 
+#stats_image {
+    display: block;
+    margin: auto;
+}
+
 #link {
     width: 100%;
     text-align: center;
@@ -150,6 +155,11 @@
     color: blue;
     margin: 50px 0;
 
+}
+
+.search {
+    cursor: pointer;
+    display: inline;
 }
 
 #RSI {
@@ -194,5 +204,12 @@
     margin-left: 50px;
     color: #99a5c8;
     cursor: pointer;
-    max-width: max-content;
+    padding: 10px;
+    border-style: hidden;
+    background: white;
+}
+
+#stats_buttons {
+    text-align: center;
+    margin-top: 100px;
 }

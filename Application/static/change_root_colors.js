@@ -1,0 +1,10 @@
+document.documentElement.style.setProperty('--group-border-focus', '#009688');
+document.documentElement.style.setProperty('--input-border-focus', '#009688');
+document.documentElement.style.setProperty('--group-background-focus', '#46bcb2');
+document.documentElement.style.setProperty('--input-placeholder', '#9cbab7');
+document.documentElement.style.setProperty('--group-background', '#ebfcfc');
+document.documentElement.style.setProperty('--group-color', '#92b0ad');
+document.documentElement.style.setProperty('--group-color-focus', '#fdfdfd');
+document.documentElement.style.setProperty('--input-color', '#92b0ad');
+document.documentElement.style.setProperty('--input-border', '#bce3e1');
+document.documentElement.style.setProperty('--input-background', 'white');

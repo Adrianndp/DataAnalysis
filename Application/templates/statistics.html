@@ -7,51 +7,15 @@
 <body>
 {% block content %}
 <div style="margin: 50px">
-<div class="form-group">
-    <input class="form-field" name="statistic" id="statistic" placeholder="Ticker"><br>
-    <span style="display: inline;"><i class="fa fa-search" aria-hidden="true"></i></span>
+    <form id='submit-form' class="form-group">
+        <input oninput="let p=this.selectionStart;this.value=this.value.toUpperCase();this.setSelectionRange(p, p);"
+               class="form-field" name="stock" id="stock" placeholder="Ticker" required="required"><br>
+        <button type="submit" class="search"
+                onclick="console.log('pressed a button')">
+            <i class="fa fa-search" aria-hidden="true"></i></button>
+    </form>
 </div>
-</div>
-
-
-<h3 id="tittle_gainers" class="table_titles" onclick="show_table('gainers', 'tittle_gainers')"> Show Top Gainers today  <i class="fa fa-caret-square-o-down" aria-hidden="true"></i></h3>
-<div id="gainers" style="display: none">
-    <table id="top_gainers" class="styled-table">
-        <thead>
-        <tr>
-            <th>Symbol</th>
-            <th>Name</th>
-            <th>Price</th>
-            <th>Change</th>
-            <th>Change %</th>
-            <th>Volume</th>
-            <th>Market Cap</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr>
-            <td>AAPL</td>
-            <td>Apple</td>
-            <th>5</th>
-            <th>5</th>
-            <th>5</th>
-            <th>5</th>
-            <th>5</th>
-        </tr>
-        <tr class="active-row">
-            <td>MSFT</td>
-            <td>Microsoft</td>
-            <th>5</th>
-            <th>5</th>
-            <th>5</th>
-            <th>5</th>
-            <th>5</th>
-        </tr>
-        <!-- and so on... -->
-        </tbody>
-    </table>
-</div>
-
+<img id="stats_image" src="../static/stats.svg" width="300" height="300">
 {% endblock %}
 </body>
 </html>

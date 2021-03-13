@@ -1,3 +1,9 @@
+$(document).ready(function ($) {
+    $(document).on('submit', '#submit-form', function (event) {
+        event.preventDefault();
+    });
+});
+
 function menu() {
     if (document.getElementById("mySidebar").style.display === "none") {
         document.getElementById("mySidebar").style.display = "block";
@@ -9,6 +15,7 @@ function menu() {
 }
 
 function get_graph(data, EMA, stock_title, RSI, range) {
+    console.log("graph")
     document.getElementById("stock_image").style.display = "none";
     document.getElementById('stock').value = "";
     let options = {
@@ -83,6 +90,7 @@ function get_graph(data, EMA, stock_title, RSI, range) {
             }
         },
     }
+
     // -------------------------
     let chart = new ApexCharts(
         document.querySelector("#chart"),
@@ -93,6 +101,10 @@ function get_graph(data, EMA, stock_title, RSI, range) {
 }
 
 function handle_data(data, stock_title, window_size) {
+    console.log("im handling")
+    document.getElementById('stock_error').style.display = "none";
+    document.getElementById('chart').style.display = "block";
+    document.getElementById('RSI').style.display = "block";
     let sma_window_size = window_size;
     let length = Object.keys(data.Date).length;
     let filtered_data = [], EMA = [], RSI = [];
@@ -108,12 +120,30 @@ function handle_data(data, stock_title, window_size) {
 }
 
 function fetch_data(stock, window_size) {
+    console.log("im fetching")
     stock = stock.toUpperCase()
     fetch(`http://localhost:5000/get_graph_api?stock=${stock}`)
-        .then(response => response.json())
-        .then(data => handle_data(data, stock, window_size));
+        .then(response => {
+            if (response.ok) {
+                return response.json();
+            } else {
+                throw new Error(`No Data fetched for symbol: ${stock}`);
+            }
+        })
+        .then(data => handle_data(data, stock, window_size))
+        .catch((error) => {
+            show_error(stock)
+        });
 }
 
+function show_error(stock) {
+    document.getElementById('RSI').style.display = "none";
+    document.getElementById('chart').style.display = "none";
+    document.getElementById('stock_image').style.display = "none";
+    document.getElementById('stock_error').innerHTML = (`No Data fetched for symbol: ${stock}`);
+    document.getElementById('stock_error').style.display = "block";
+
+}
 
 function get_RSI(RSI, range) {
     let options = {
@@ -175,7 +205,6 @@ function get_RSI(RSI, range) {
         },
 
     };
-
     let chart = new ApexCharts(document.querySelector("#RSI"), options);
     chart.render();
 }
