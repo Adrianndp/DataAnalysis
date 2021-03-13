@@ -27,17 +27,11 @@ def download():
         return render_template("download.html")
 
 
-@app.route('/get_<api>_api')
-def get_graph_api(api):
+@app.route('/get_graph_api')
+def get_graph_api():
     stock = request.args.get('stock', None)
     start_date = request.args.get("start_date", None)
-    keyword = request.args.get("keyword", None)
-    if api == "news":
-        return application.get_news(keyword, start_date)
-    elif api == "graph":
-        return application.get_graph_with_indicators(stock, start_date)
-    else:
-        return abort(500, "Bad request")
+    return application.get_graph_with_indicators(stock, start_date)
 
 
 if __name__ == '__main__':

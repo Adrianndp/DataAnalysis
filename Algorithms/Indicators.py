@@ -1,10 +1,5 @@
 from Algorithms.DataAnalizer import __initialize_stock, __plot
-from Helper import date_format as date
 import stockstats
-
-stock = "MDB"
-start_date = date.get_date_month(6)
-df_input = __initialize_stock(stock, start_date=start_date, index_date=True)
 
 
 def get_EMA(df, window_size=None, plot=False):
@@ -42,32 +37,7 @@ def get_MACD(df, plot=False):
         return df
 
 
-def get_RSI(df, window_size=None, plot=False):
-    # https://www.tradingview.com/support/solutions/43000502338-relative-strength-index-rsi/
-    if window_size is None:
-        window_size = 14
-    df = df.sort_index()
-    adj_close = df['Adj Close']
-    delta = adj_close.diff()
-    delta = delta[1:]
-    up, down = delta.copy(), delta.copy()
-    up[up < 0] = 0
-    down[down > 0] = 0
-    # ta.ema(up, length=20)
-    avg_gain = up.ewm(span=window_size).mean()
-    avg_loss = down.abs().ewm(span=window_size).mean()
-    RS = avg_gain / avg_loss
-    RSI = 100.0 - (100.0 / (1.0 + RS))
-    df['RSI'] = RSI
-    df = df[window_size:]
-    if plot:
-        __plot([df['RSI']], "RSI")
-    else:
-        df.drop(df.columns.difference(['Close', 'Adj Close', 'RSI']), 1, inplace=True)
-        return df
-
-
-def get_RSI_with_library(df, plot=False):
+def get_RSI(df, plot=False):
     stock_df = stockstats.StockDataFrame.retype(df)
     df['rsi'] = stock_df['rsi_14']
     if plot:
@@ -86,5 +56,3 @@ def get_bollinger_bands(df, period=None, multiplier=None):
     # 20-period Simple Moving Average minus 2 times the 20-period rolling standard deviation
     df['LowerBand'] = df['Close'].rolling(period).mean() - df['Close'].rolling(period).std() * multiplier
     __plot([df['Close'], df['UpperBand'], df['LowerBand']], "Bollinger Bands")
-    # plt.plot(df['UpperBand'], label="Upper Bollinger Band")
-    # plt.plot(df['LowerBand'], label="Lower Bollinger Band")

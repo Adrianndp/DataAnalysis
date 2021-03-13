@@ -3,7 +3,6 @@ from Helper import date_format as date
 from sklearn.linear_model import LinearRegression
 from APIS import StockAPI as myAPI
 import numpy as np
-import math
 
 
 def visualize_close(stock_name, time=None):
@@ -27,7 +26,6 @@ def linear_regression(df, property_to_check=None, plot=False):
     if property_to_check in dataframe:
         property_index = list(dataframe).index(property_to_check)
     else:
-        print("property not in dataset")
         return
     dataframe['ID'] = dataframe.index
     id_index = list(dataframe).index('ID')
@@ -68,35 +66,6 @@ def __plot(columns_to_plot, title):
     with plt.style.context('dark_background'):
         for row in columns_to_plot:
             plt.plot(row)
-
-    # indexes = columns_to_plot[0].index.tolist()
-    # index_list, intersections = get_intersections(columns_to_plot[0].tolist(), columns_to_plot[1].tolist(), indexes)
-    # plt.plot(index_list, intersections, 'ro')
-
     font = {'family': 'arial', 'color': 'white', 'weight': 'normal', 'size': 20}
     plt.title(title, fontdict=font)
     plt.show()
-
-
-def get_intersections(list_a, list_b, indexes):
-    """
-    :param column of dataframe list_a: intersects list_b
-    :param column of dataframe list_b: intersects list_a
-    :param index of df indexes:
-    :return: x and y coordinates of the points to plot
-    """
-    list_a = list(map(lambda x: round(x), list_a))
-    list_b = list(map(lambda x: round(x) if not math.isnan(x) else x, list_b))
-    intersections_and_index = [(list_a[x], x) for x in range(len(list_a)) if list_a[x] == list_b[x]]
-    x_values = [indexes[intersections_and_index[i][1]] for i in range(len(intersections_and_index))]
-    y_values = [intersections_and_index[i][0] for i in range(len(intersections_and_index))]
-    return x_values, y_values
-
-
-def _get_wr(df, days_no):
-    """ Williams Overbought/Oversold Index
-    """
-    ln = df['Low'].rolling(min_periods=1, window=days_no, center=False).min()
-    hn = df['High'].rolling(min_periods=1, window=days_no, center=False).max()
-    column_name = 'wr_{}'.format(days_no)
-    df[column_name] = (hn - df['Close']) / (hn - ln) * 100
