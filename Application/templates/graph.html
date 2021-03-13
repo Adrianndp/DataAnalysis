@@ -2,7 +2,7 @@
 <html lang="en">
 <body>
 {% block content %}
-<script src="../static/change_root_colors.js"></script>
+<script src="../static/JS/change_root_colors.js"></script>
 <div style="margin: 50px">
     <form id='submit-form' class="form-group">
         <input oninput="let p=this.selectionStart;this.value=this.value.toUpperCase();this.setSelectionRange(p, p);"
@@ -15,7 +15,7 @@
 <div id="stock_error" class="error" style="display: none"></div>
 <div id="chart"></div>
 <div id="RSI"></div>
-<img id="stock_image" src="../static/stock.svg" width="300" height="300">
+<img id="stock_image" src="../static/SVG/stock.svg" width="300" height="300">
 {% endblock %}
 </body>
 </html>

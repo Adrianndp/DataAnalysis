@@ -66,5 +66,3 @@ def get_top_crypto():
 def get_cash_flow(stock):
     return si.get_cash_flow(stock)
 
-
-
