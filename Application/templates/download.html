@@ -2,6 +2,7 @@
 <html lang="en">
 <body>
 {% block content %}
+
 <div class="feed">
     <div class="w3-row-padding" style="margin:0 -16px">
         <div class="w3-twothird">
@@ -16,7 +17,6 @@
         </div>
     </div>
 </div>
-
 <div id="stats_buttons">
     <button id="tittle_gainers" class="table_titles" onclick="show_table('gainers', 'tittle_gainers')"> Show Top Gainers
         today <i class="fa fa-caret-square-o-down" aria-hidden="true"></i></button>
@@ -56,12 +56,15 @@
             </tbody>
         </table>
     </div>
-    <button id="tittle_losers" class="table_titles" onclick="show_table('losers', 'tittle_losers')"> Show Top Gainers
+    <button id="tittle_losers" class="table_titles" onclick="show_table('losers', 'tittle_losers')"> Show Top Losers
         today <i class="fa fa-caret-square-o-down" aria-hidden="true"></i></button>
     <button id="tittle_most_active" class="table_titles" onclick="show_table('most_active', 'tittle_most_active')"> Show
-        Top Gainers today <i class="fa fa-caret-square-o-down" aria-hidden="true"></i></button>
-</div>
+        Top Actives today <i class="fa fa-caret-square-o-down" aria-hidden="true"></i></button>
 
+    <button id="tittle_top_crypto" class="table_titles" onclick="show_table('top_crypto', 'tittle_crypto')"> Show
+        Top Crypto <i class="fa fa-caret-square-o-down" aria-hidden="true"></i></button>
+</div>
+<img id="stats_image" src="../static/SVG/trophy.svg" width="300" height="300">
 {% endblock %}
 </body>
 </html>

@@ -176,7 +176,7 @@
 }
 
 .styled-table thead tr {
-    background-color: #2196F3;
+    background-color: #ff9800;
     color: #ffffff;
     text-align: left;
 }
@@ -197,16 +197,19 @@
 
 .styled-table tbody tr.active-row {
     font-weight: bold;
-    color: #2196F3;
+    color: #ff9800;
 }
 
 .table_titles {
+    min-width: 30%;
+    background: white;
+    margin-bottom: 20px;
     margin-left: 50px;
-    color: #99a5c8;
+    color: #ff9800;
     cursor: pointer;
     padding: 10px;
     border-style: hidden;
-    background: white;
+    display: block;
 }
 
 #stats_buttons {

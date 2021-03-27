@@ -212,9 +212,9 @@ function get_RSI(RSI, range) {
 function show_table(id, tittle) {
     if (document.getElementById(id).style.display === "none") {
         document.getElementById(id).style.display = "block";
-        document.getElementById(tittle).style.color = '#162f7a';
+        document.getElementById(tittle).style.color = '#865403';
     } else {
         document.getElementById(id).style.display = "none";
-        document.getElementById(tittle).style.color = '#99a5c8';
+        document.getElementById(tittle).style.color = '#ff9800';
     }
 }

@@ -55,14 +55,13 @@ def get_market_cap(stock_name):
     return market_dict[stock_name]
 
 
-def get_dividend_share(stock, start_date):
-    return si.get_dividends(stock, start_date)
+def get_dividend_share(stock):
+    return si.get_dividends(stock)
 
 
 def get_top_crypto():
     return si.get_top_crypto()
 
 
-def get_cash_flow(stock):
-    return si.get_cash_flow(stock)
-
+def get_last_cash_flow(stock):
+    return si.get_cash_flow(stock).iloc[:, 0]
