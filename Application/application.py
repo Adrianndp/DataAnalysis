@@ -3,7 +3,7 @@ from Algorithms.Indicators import get_EMA, get_RSI
 import Helper.date_format as date
 from flask import abort
 from APIS.StockAPI import get_bigger_gainers, get_dividend_share, get_market_cap, get_current_stock_price, \
-    get_last_cash_flow
+    get_last_cash_flow, get_worst_performers, get_most_active_stocks
 import json
 
 
@@ -39,6 +39,14 @@ def get_top_gainers():
     return get_bigger_gainers().to_json()
 
 
+def get_top_losers():
+    return get_worst_performers().to_json()
+
+
+def get_top_active():
+    return get_most_active_stocks().to_json()
+
+
 def get_stats(ticker):
     data = {'Price': get_current_stock_price(ticker), 'Market Cap': get_market_cap(ticker)}
     try:
@@ -59,4 +67,3 @@ def get_dividends(ticker):
     dividends = get_dividend_share(ticker).to_json()
     dividends = json.loads(dividends)
     return dividends['dividend']
-

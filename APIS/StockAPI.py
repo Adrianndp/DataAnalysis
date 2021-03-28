@@ -59,9 +59,5 @@ def get_dividend_share(stock):
     return si.get_dividends(stock)
 
 
-def get_top_crypto():
-    return si.get_top_crypto()
-
-
 def get_last_cash_flow(stock):
     return si.get_cash_flow(stock).iloc[:, 0]

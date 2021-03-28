@@ -5,15 +5,13 @@
 <h1 style="text-align: center;margin-top: 50px; color: #cb7a03; margin-bottom: 50px">Most searched Categories</h1>
 <div>
     <div id="stats_buttons">
-        <button id="tittle_gainers" class="table_titles"> Show Top Gainers
+        <button id="tittle_gainers" class="table_titles" onclick="fetch_tops('gainers')"> Show Top Gainers
             today <i class="fa fa-caret-square-o-down" aria-hidden="true"></i></button>
-        <button id="tittle_losers" class="table_titles"> Show Top Losers
-            today <i class="fa fa-caret-square-o-down" aria-hidden="true"></i></button>
-        <button id="tittle_most_active" class="table_titles"> Show
+        <button id="tittle_losers" class="table_titles" onclick="fetch_tops('losers')"> Show Top Losers
+            today <i class=" fa fa-caret-square-o-down
+        " aria-hidden="true"></i></button>
+        <button id="tittle_most_active" class="table_titles" onclick="fetch_tops('active')"> Show
             Top Actives today <i class="fa fa-caret-square-o-down" aria-hidden="true"></i></button>
-
-        <button id="tittle_top_crypto" class="table_titles"> Show
-            Top Crypto <i class="fa fa-caret-square-o-down" aria-hidden="true"></i></button>
     </div>
     <img id="stats_image" src="../static/SVG/trophy.svg" width="300"
          height="300">

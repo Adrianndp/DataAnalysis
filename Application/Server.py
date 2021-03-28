@@ -21,12 +21,21 @@ def create_app(test_config=None):
     def statistics():
         return render_template("statistics.html")
 
-    @app.route('/tops', methods=['GET', 'POST'])
+    @app.route('/tops')
     def tops():
-        if request.method == 'POST':
-            return application.df_to_csv("AAPL", "2020-01-01", "2021-01-01")
-        else:
-            return render_template("tops.html")
+        return render_template("tops.html")
+
+    @app.route('/get_top_gainers')
+    def get_top_gainers():
+        return application.get_top_gainers()
+
+    @app.route('/get_top_losers')
+    def get_top_losers():
+        return application.get_top_losers()
+
+    @app.route('/get_top_active')
+    def get_top_active():
+        return application.get_top_active()
 
     @app.route('/get_graph_api')
     def get_graph_api():

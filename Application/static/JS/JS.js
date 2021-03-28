@@ -46,6 +46,24 @@ function fetch_stats(stock) {
         });
 }
 
+function fetch_tops(top) {
+    // top can be 'gainers' losers' 'active'.
+    fetch(`http://localhost:5000/get_top_${top}`)
+        .then(response => {
+            if (response.ok) {
+                return response.json();
+            } else {
+                throw new Error(`Bad request: ${top}`);
+            }
+        })
+        .then(data => handle_tops(data));
+}
+
+function handle_tops(data) {
+    console.log(data)
+}
+
+
 function handle_data(data, stock_title, window_size) {
     console.log("im handling")
     document.getElementById('stock_error').style.display = "none";
