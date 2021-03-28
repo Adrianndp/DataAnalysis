@@ -1,11 +1,14 @@
-from flask import Flask, render_template, request, abort
+from flask import Flask, render_template, request, abort, redirect, url_for
 import Application.application as application
 
 
 def create_app(test_config=None):
     app = Flask(__name__)
+
     if test_config is None:
-        app.config.from_pyfile('application.cfg', silent=True)
+        app.config['HOST'] = 'localhost'
+        app.config['DEBUG'] = True
+        app.config['PORT'] = 5000
     else:
         app.config.from_mapping(test_config)
 
@@ -21,9 +24,24 @@ def create_app(test_config=None):
     def statistics():
         return render_template("statistics.html")
 
-    @app.route('/tops')
+    @app.route('/tops', methods=['GET', 'POST'])
     def tops():
-        return render_template("tops.html")
+        if request.method == 'GET':
+            return render_template("tops.html")
+        else:
+            data = {}
+            if request.form['submit_button'] == 'Show Top Gainers Today':
+                data = application.get_top_gainers()
+            elif request.form['submit_button'] == 'Show Top Losers today':
+                data = application.get_top_losers()
+            elif request.form['submit_button'] == 'Show Top Actives today':
+                data = application.get_top_active()
+            print(data)
+            return redirect(url_for('table'))
+
+    @app.route('/table')
+    def table():
+        return render_template("table.html")
 
     @app.route('/get_top_gainers')
     def get_top_gainers():
@@ -48,11 +66,8 @@ def create_app(test_config=None):
         stock = request.args.get('stock', None)
         return application.get_stats(stock)
 
-    app.debug = True
-    app.host = "localhost"
-    app.port = 500
     return app
 
 
 if __name__ == '__main__':
-    create_app().run(host="localhost")
+    create_app().run(host='localhost')

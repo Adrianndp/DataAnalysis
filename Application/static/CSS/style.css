@@ -177,13 +177,14 @@
 }
 
 .styled-table thead tr {
-    background-color: #ff9800;
-    color: #ffffff;
+    background-color: #ffffff;
+    color: #3f51b5;
     text-align: left;
 }
 
 .styled-table th,
 .styled-table td {
+    text-align: left;
     padding: 12px 15px;
 }
 
@@ -195,11 +196,6 @@
     background-color: #f3f3f3;
 }
 
-
-.styled-table tbody tr.active-row {
-    font-weight: bold;
-    color: #ff9800;
-}
 
 .table_titles {
     min-width: 80%;
