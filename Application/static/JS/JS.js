@@ -14,6 +14,164 @@ function menu() {
     }
 }
 
+
+function fetch_data(stock, window_size) {
+    stock = stock.toUpperCase()
+    fetch(`http://localhost:5000/get_graph_api?stock=${stock}`)
+        .then(response => {
+            if (response.ok) {
+                return response.json();
+            } else {
+                throw new Error(`No Data fetched for symbol: ${stock}`);
+            }
+        })
+        .then(data => handle_data(data, stock, window_size))
+        .catch((error) => {
+            show_error(stock)
+        });
+}
+
+function fetch_stats(stock) {
+    fetch(`http://localhost:5000/get_stats_api?stock=${stock}`)
+        .then(response => {
+            if (response.ok) {
+                return response.json();
+            } else {
+                throw new Error(`No Data fetched for symbol: ${stock}`);
+            }
+        })
+        .then(data => handle_stats(data, stock))
+        .catch((error) => {
+            show_error(stock, false)
+        });
+}
+
+function handle_data(data, stock_title, window_size) {
+    console.log("im handling")
+    document.getElementById('stock_error').style.display = "none";
+    document.getElementById('chart').style.display = "block";
+    document.getElementById('RSI').style.display = "block";
+    let sma_window_size = window_size;
+    let length = Object.keys(data.Date).length;
+    let filtered_data = [], EMA = [], RSI = [];
+    for (let i = sma_window_size; i < length + sma_window_size; i++) {
+        filtered_data.push({x: new Date(data.Date[i]), y: [data.Open[i], data.High[i], data.Low[i], data.Close[i]]});
+        EMA.push({x: new Date(data.Date[i]), y: data.EMA[i]});
+        RSI.push({x: new Date(data.Date[i]), y: data.RSI[i]});
+    }
+    let max = new Date().getTime()
+    let min = new Date(data.zoom_range).getTime()
+    let range = max - min
+    get_graph(filtered_data, EMA, stock_title, RSI, range);
+}
+
+
+function handle_stats(data, stock_tittle) {
+    document.getElementById('stock_error').style.display = "none";
+    document.getElementById('stats').innerHTML = "";
+    let node = document.createElement("h1");
+    node.style.color = '#0505af'
+    let text_node = document.createTextNode(`Statistics of ${stock_tittle}`);
+    node.appendChild(text_node);
+    document.getElementById("stats").appendChild(node);
+    for (let i in data) {
+        if (data.hasOwnProperty(i)) {
+            let node = document.createElement("h3");
+            let text_data;
+            if (i === 'Last Dividend') {
+                text_data = `${i}:     ${data[i][1]} $`;
+            } else {
+                text_data = `${i}: ${data[i].toLocaleString()} $`
+            }
+            let text_node = document.createTextNode(text_data);
+            node.appendChild(text_node);
+            document.getElementById("stats").appendChild(node);
+        }
+    }
+    document.getElementById('stock').value = "";
+    document.getElementById('stats_image').style.display = 'none'
+    document.getElementById('stats').style.display = 'block'
+}
+
+
+function show_error(stock, charts = true) {
+    if (charts) {
+        document.getElementById('RSI').style.display = "none";
+        document.getElementById('chart').style.display = "none";
+        document.getElementById('stock_image').style.display = "none";
+    } else {
+        document.getElementById('stats_image').style.display = "none";
+        document.getElementById('stats').style.display = 'none'
+    }
+    document.getElementById('stock_error').innerHTML = (`No Data fetched for symbol: ${stock}`);
+    document.getElementById('stock_error').style.display = "block";
+
+}
+
+function get_RSI(RSI, range) {
+    let options = {
+        chart: {
+            height: 280,
+            type: "area",
+            animations: {
+                enabled: false
+            },
+            events: {
+                beforeZoom: function (ctx) {
+                    ctx.w.config.xaxis.range = undefined
+                }
+            }
+        },
+        colors: ["#026d63"],
+        dataLabels: {
+            enabled: false
+        },
+        title: {
+            text: 'RSI',
+            align: 'left',
+        },
+        series: [
+            {
+                name: "RSI Index",
+                data: RSI,
+                decimalsInFloat: 0,
+            }
+        ],
+        fill: {
+            type: "gradient",
+            gradient: {
+                shadeIntensity: 1,
+                opacityFrom: 0.7,
+                opacityTo: 0.9,
+                stops: [0, 90, 100]
+            },
+            colors: ['#009688']
+        },
+        stroke: {
+            colors: ['#009688']
+        },
+        xaxis: {
+            type: 'datetime',
+            tickAmount: 6,
+            range: range,
+        },
+        yaxis: {
+            decimalsInFloat: 0,
+            tooltip: {
+                enabled: true
+            }
+        },
+        tooltip: {
+            x: {
+                format: 'dd MMM yyyy'
+            }
+        },
+
+    };
+    let chart = new ApexCharts(document.querySelector("#RSI"), options);
+    chart.render();
+}
+
 function get_graph(data, EMA, stock_title, RSI, range) {
     console.log("graph")
     document.getElementById("stock_image").style.display = "none";
@@ -98,153 +256,4 @@ function get_graph(data, EMA, stock_title, RSI, range) {
     );
     chart.render();
     get_RSI(RSI, range);
-}
-
-function handle_data(data, stock_title, window_size) {
-    console.log("im handling")
-    document.getElementById('stock_error').style.display = "none";
-    document.getElementById('chart').style.display = "block";
-    document.getElementById('RSI').style.display = "block";
-    let sma_window_size = window_size;
-    let length = Object.keys(data.Date).length;
-    let filtered_data = [], EMA = [], RSI = [];
-    for (let i = sma_window_size; i < length + sma_window_size; i++) {
-        filtered_data.push({x: new Date(data.Date[i]), y: [data.Open[i], data.High[i], data.Low[i], data.Close[i]]});
-        EMA.push({x: new Date(data.Date[i]), y: data.EMA[i]});
-        RSI.push({x: new Date(data.Date[i]), y: data.RSI[i]});
-    }
-    let max = new Date().getTime()
-    let min = new Date(data.zoom_range).getTime()
-    let range = max - min
-    get_graph(filtered_data, EMA, stock_title, RSI, range);
-}
-
-function fetch_data(stock, window_size) {
-    stock = stock.toUpperCase()
-    fetch(`http://localhost:5000/get_graph_api?stock=${stock}`)
-        .then(response => {
-            if (response.ok) {
-                return response.json();
-            } else {
-                throw new Error(`No Data fetched for symbol: ${stock}`);
-            }
-        })
-        .then(data => handle_data(data, stock, window_size))
-        .catch((error) => {
-            show_error(stock)
-        });
-}
-
-function fetch_stats(stock) {
-    fetch(`http://localhost:5000/get_stats_api?stock=${stock}`)
-        .then(response => {
-            if (response.ok) {
-                return response.json();
-            } else {
-                throw new Error(`No Data fetched for symbol: ${stock}`);
-            }
-        })
-        .then(data => handle_stats(data, stock))
-        .catch((error) => {
-            show_error(stock)
-        });
-}
-
-function handle_stats(data, stock_tittle) {
-    document.getElementById('stats').innerHTML = "";
-    let node = document.createElement("h1");
-    let text_node = document.createTextNode(stock_tittle);
-    node.appendChild(text_node);
-    document.getElementById("stats").appendChild(node);
-    for (let i in data) {
-        if (data.hasOwnProperty(i)) {
-            let node = document.createElement("h3");
-            let text_data;
-            if (i === 'Last Dividend') {
-                text_data = `${i}: ${data[i][1]}`;
-            } else {
-                text_data = `${i}: ${data[i]}`
-            }
-            let text_node = document.createTextNode(text_data);
-            node.appendChild(text_node);
-            document.getElementById("stats").appendChild(node);
-        }
-    }
-    document.getElementById('stock').value = "";
-    document.getElementById('stats_image').style.display = 'none'
-    document.getElementById('stats').style.display = 'block'
-}
-
-
-function show_error(stock) {
-    document.getElementById('RSI').style.display = "none";
-    document.getElementById('chart').style.display = "none";
-    document.getElementById('stock_image').style.display = "none";
-    document.getElementById('stock_error').innerHTML = (`No Data fetched for symbol: ${stock}`);
-    document.getElementById('stock_error').style.display = "block";
-
-}
-
-function get_RSI(RSI, range) {
-    let options = {
-        chart: {
-            height: 280,
-            type: "area",
-            animations: {
-                enabled: false
-            },
-            events: {
-                beforeZoom: function (ctx) {
-                    ctx.w.config.xaxis.range = undefined
-                }
-            }
-        },
-        colors: ["#026d63"],
-        dataLabels: {
-            enabled: false
-        },
-        title: {
-            text: 'RSI',
-            align: 'left',
-        },
-        series: [
-            {
-                name: "RSI Index",
-                data: RSI,
-                decimalsInFloat: 0,
-            }
-        ],
-        fill: {
-            type: "gradient",
-            gradient: {
-                shadeIntensity: 1,
-                opacityFrom: 0.7,
-                opacityTo: 0.9,
-                stops: [0, 90, 100]
-            },
-            colors: ['#009688']
-        },
-        stroke: {
-            colors: ['#009688']
-        },
-        xaxis: {
-            type: 'datetime',
-            tickAmount: 6,
-            range: range,
-        },
-        yaxis: {
-            decimalsInFloat: 0,
-            tooltip: {
-                enabled: true
-            }
-        },
-        tooltip: {
-            x: {
-                format: 'dd MMM yyyy'
-            }
-        },
-
-    };
-    let chart = new ApexCharts(document.querySelector("#RSI"), options);
-    chart.render();
 }

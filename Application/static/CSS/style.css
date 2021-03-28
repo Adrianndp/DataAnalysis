@@ -220,7 +220,10 @@
 }
 
 .stats {
+    padding: 50px;
+    background-color: #e5ebfb;
+    border-radius: 5%;
     width: 50%;
     margin: auto;
-    color: #2196F3;
+    color: #065ea5;
 }
