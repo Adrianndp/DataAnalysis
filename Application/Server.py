@@ -19,12 +19,12 @@ def statistics():
     return render_template("statistics.html")
 
 
-@app.route('/download', methods=['GET', 'POST'])
-def download():
+@app.route('/tops', methods=['GET', 'POST'])
+def tops():
     if request.method == 'POST':
         return application.df_to_csv("AAPL", "2020-01-01", "2021-01-01")
     else:
-        return render_template("download.html")
+        return render_template("tops.html")
 
 
 @app.route('/get_graph_api')

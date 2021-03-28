@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+<html lang="en">
+<head>
+</head>
+<body>
+{% block content %}
+ <div id="gainers" style="display: block">
+        <table id="top_gainers" class="styled-table">
+            <thead>
+            <tr>
+                <th>Symbol</th>
+                <th>Name</th>
+                <th>Price</th>
+                <th>Change</th>
+                <th>Change %</th>
+                <th>Volume</th>
+                <th>Market Cap</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>AAPL</td>
+                <td>Apple</td>
+                <th>5</th>
+                <th>5</th>
+                <th>5</th>
+                <th>5</th>
+                <th>5</th>
+            </tr>
+            <tr class="active-row">
+                <td>MSFT</td>
+                <td>Microsoft</td>
+                <th>5</th>
+                <th>5</th>
+                <th>5</th>
+                <th>5</th>
+                <th>5</th>
+            </tr>
+            <!-- and so on... -->
+            </tbody>
+        </table>
+    </div>
+{% endblock %}
+</body>
+</html>
