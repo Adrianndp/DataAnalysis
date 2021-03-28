@@ -34,6 +34,11 @@ def create_app(test_config=None):
         start_date = request.args.get("start_date", None)
         return application.get_graph_with_indicators(stock, start_date)
 
+    @app.route('/get_stats_api')
+    def get_stats():
+        stock = request.args.get('stock', None)
+        return application.get_stats(stock)
+
     app.debug = True
     app.host = "localhost"
     app.port = 500

@@ -44,7 +44,7 @@ def get_stats(ticker):
     try:
         dividends = get_dividend_share(ticker).to_json()
         dividends = json.loads(dividends)
-        Dividends = dividends['dividend']
+        data['Last Dividend'] = list(dividends['dividend'].items())[-1]
     except AssertionError:
         pass
     cash_flow = get_last_cash_flow(ticker).to_json()
@@ -53,3 +53,10 @@ def get_stats(ticker):
     data['Depreciation'] = cash_flow['depreciation']
     data['Total Cash Flow from Investing activities'] = cash_flow['totalCashflowsFromInvestingActivities']
     return data
+
+
+def get_dividends(ticker):
+    dividends = get_dividend_share(ticker).to_json()
+    dividends = json.loads(dividends)
+    return dividends['dividend']
+

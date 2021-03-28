@@ -120,7 +120,6 @@ function handle_data(data, stock_title, window_size) {
 }
 
 function fetch_data(stock, window_size) {
-    console.log("im fetching")
     stock = stock.toUpperCase()
     fetch(`http://localhost:5000/get_graph_api?stock=${stock}`)
         .then(response => {
@@ -135,6 +134,47 @@ function fetch_data(stock, window_size) {
             show_error(stock)
         });
 }
+
+function fetch_stats(stock) {
+    fetch(`http://localhost:5000/get_stats_api?stock=${stock}`)
+        .then(response => {
+            if (response.ok) {
+                return response.json();
+            } else {
+                throw new Error(`No Data fetched for symbol: ${stock}`);
+            }
+        })
+        .then(data => handle_stats(data, stock))
+        .catch((error) => {
+            show_error(stock)
+        });
+}
+
+function handle_stats(data, stock_tittle) {
+    document.getElementById('stats').innerHTML = "";
+    let node = document.createElement("h1");
+    let text_node = document.createTextNode(stock_tittle);
+    node.appendChild(text_node);
+    document.getElementById("stats").appendChild(node);
+    for (let i in data) {
+        if (data.hasOwnProperty(i)) {
+            let node = document.createElement("h3");
+            let text_data;
+            if (i === 'Last Dividend') {
+                text_data = `${i}: ${data[i][1]}`;
+            } else {
+                text_data = `${i}: ${data[i]}`
+            }
+            let text_node = document.createTextNode(text_data);
+            node.appendChild(text_node);
+            document.getElementById("stats").appendChild(node);
+        }
+    }
+    document.getElementById('stock').value = "";
+    document.getElementById('stats_image').style.display = 'none'
+    document.getElementById('stats').style.display = 'block'
+}
+
 
 function show_error(stock) {
     document.getElementById('RSI').style.display = "none";
