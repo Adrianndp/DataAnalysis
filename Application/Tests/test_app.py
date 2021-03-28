@@ -1,5 +1,15 @@
-import requests
+import pytest
+from Application.Server import create_app
 
-res = requests.get('http://localhost:5000/get_graph_api?stock=AAPL')
-print('response from server:', res.json())
-dictFromServer = res.json()
+
+@pytest.fixture
+def client():
+    app = create_app({'TESTING': True, 'HOST': 'http://localhost'})
+    with app.test_client() as client:
+        yield client
+
+
+def test_home(client):
+    rv = client.get('/')
+    assert rv.status_code == 200
+
