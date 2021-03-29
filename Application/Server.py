@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request, abort, redirect, url_for
 import Application.application as application
+import json
 
 
 def create_app(test_config=None):
@@ -31,29 +32,16 @@ def create_app(test_config=None):
         else:
             data = {}
             if request.form['submit_button'] == 'Show Top Gainers Today':
-                data = application.get_top_gainers()
+                data = application.get_top('gainers')
             elif request.form['submit_button'] == 'Show Top Losers today':
-                data = application.get_top_losers()
+                data = application.get_top('losers')
             elif request.form['submit_button'] == 'Show Top Actives today':
-                data = application.get_top_active()
-            print(data)
-            return redirect(url_for('table'))
+                data = application.get_top('active')
+            return redirect(url_for('table', data=data))
 
     @app.route('/table')
     def table():
-        return render_template("table.html")
-
-    @app.route('/get_top_gainers')
-    def get_top_gainers():
-        return application.get_top_gainers()
-
-    @app.route('/get_top_losers')
-    def get_top_losers():
-        return application.get_top_losers()
-
-    @app.route('/get_top_active')
-    def get_top_active():
-        return application.get_top_active()
+        return render_template("table.html", data=json.loads(request.args.get('data')))
 
     @app.route('/get_graph_api')
     def get_graph_api():

@@ -35,16 +35,26 @@ def get_graph_with_indicators(stock, start_date=None):
     return json.dumps(df)
 
 
-def get_top_gainers():
-    return get_bigger_gainers().to_json()
-
-
-def get_top_losers():
-    return get_worst_performers().to_json()
-
-
-def get_top_active():
-    return get_most_active_stocks().to_json()
+def get_top(top):
+    if top == 'gainers':
+        top = get_bigger_gainers()
+    elif top == 'losers':
+        top = get_worst_performers()
+    else:
+        top = get_most_active_stocks()
+    top['change_percentage'] = top.pop('% Change')
+    top['Price'] = top.pop('Price (Intraday)')
+    top['market_cap'] = top.pop('Market Cap')
+    data = json.loads(top.to_json())
+    total = []
+    for i in range(len(data['Symbol'])):
+        i = str(i)
+        data_dict = {'Symbol': data['Symbol'][i], 'Name': data['Name'][i], 'Change': data['Change'][i],
+                     'Volume': data['Volume'][i], 'change_percentage': data['change_percentage'][i],
+                     'Price': data['Price'][i],
+                     'market_cap': data['market_cap'][i]}
+        total.append(data_dict)
+    return json.dumps(total)
 
 
 def get_stats(ticker):

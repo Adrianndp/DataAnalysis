@@ -4,33 +4,34 @@
 </head>
 <body>
 {% block content %}
- <div id="gainers" style="display: block">
-        <table id="top_gainers" class="styled-table">
-            <thead>
+<div id="gainers" style="display: block">
+    <table id="top_gainers" class="styled-table">
+        <thead>
+        <tr>
+            <th>Symbol</th>
+            <th>Name</th>
+            <th>Price</th>
+            <th>Change</th>
+            <th>Change %</th>
+            <th>Volume</th>
+            <th>Market Cap</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for row in data %}
             <tr>
-                <th>Symbol</th>
-                <th>Name</th>
-                <th>Price</th>
-                <th>Change</th>
-                <th>Change %</th>
-                <th>Volume</th>
-                <th>Market Cap</th>
+                <td>{{ row.Symbol }}</td>
+                <td>{{ row.Name }}</td>
+                <td>{{ row.Price }}</td>
+                <td>{{ row.Change }}</td>
+                <td>{{ row.change_percentage }}</td>
+                <td>{{ row.Volume }}</td>
+                <td>{{ row.market_cap }}</td>
             </tr>
-            </thead>
-            <tbody>
-            <tr>
-                <td>AAPL</td>
-                <td>Apple</td>
-                <th>5</th>
-                <th>5</th>
-                <th>5</th>
-                <th>5</th>
-                <th>5</th>
-            </tr>
-            <!-- and so on... -->
-            </tbody>
-        </table>
-    </div>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
 {% endblock %}
 </body>
 </html>
