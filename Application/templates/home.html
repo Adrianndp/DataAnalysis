@@ -1,6 +1,47 @@
 {% extends "base.html" %}
 <body>
 {% block content %}
-</body>
+<style>
+    .container_with_image {
+        display: flex;
+        align-items: center;
+        justify-content: center
+    }
+
+    .image {
+        flex-basis: 40%
+    }
+
+    .text {
+        font-size: 20px;
+        padding-left: 20px;
+    }
+
+    .title {
+        color: #3759a7;
+        font-family: 'Raleway', sans-serif;
+        font-size: 50px;
+        font-weight: 800;
+        line-height: 72px;
+        margin: 0 0 24px;
+        text-align: center;
+        text-transform: uppercase;
+        max-width: 80%;
+    }
+</style>
+
+<div class="container_with_image">
+    <div class="image">
+        <img class="menu_images" src="../static/PHOTO/home_pic.png">
+    </div>
+    <div class="text">
+        <h1 class="title">Why you should invest?</h1>
+        <p style="max-width: 80%;">
+            Investing allows you to significantly grow your money over time thanks to the power of compound returns.
+            Compounding can be called the Eight Wonder of the World. Thanks to the power of compounding, a single penny
+            could grow into millions of dollars, given enough time</p>
+    </div>
+</div>
 {% endblock %}
+</body>
 </html>

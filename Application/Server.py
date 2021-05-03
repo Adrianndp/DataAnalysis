@@ -21,6 +21,18 @@ def create_app(test_config=None):
     def graph():
         return render_template("graph.html")
 
+    @app.route('/settings')
+    def settings():
+        return render_template("settings.html")
+
+    @app.route('/about_us')
+    def about_us():
+        return render_template("about_us.html")
+
+    @app.route('/help_and_support')
+    def help_and_support():
+        return render_template("help_and_support.html")
+
     @app.route('/statistics')
     def statistics():
         return render_template("statistics.html")
@@ -35,8 +47,6 @@ def create_app(test_config=None):
                 data = application.get_top('gainers')
             elif request.form['submit_button'] == 'Show Top Losers today':
                 data = application.get_top('losers')
-            elif request.form['submit_button'] == 'Show Top Actives today':
-                data = application.get_top('active')
             return redirect(url_for('table', data=data))
 
     @app.route('/table')

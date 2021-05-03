@@ -4,6 +4,17 @@ $(document).ready(function ($) {
     });
 });
 
+function add_active(id) {
+    let header = document.getElementById("menu_a_tags");
+    let btns = header.getElementsByTagName("a");
+    for (let i = 0; i < btns.length; i++) {
+        btns[i].className = btns[i].className.replace(" blue", "");
+        console.log(btns[i].className)
+    }
+    document.getElementById(id).className += " blue";
+}
+
+
 function menu() {
     if (document.getElementById("mySidebar").style.display === "none") {
         document.getElementById("mySidebar").style.display = "block";

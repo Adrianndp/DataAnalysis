@@ -40,8 +40,6 @@ def get_top(top):
         top = get_bigger_gainers()
     elif top == 'losers':
         top = get_worst_performers()
-    else:
-        top = get_most_active_stocks()
     top['change_percentage'] = top.pop('% Change')
     top['Price'] = top.pop('Price (Intraday)')
     top['market_cap'] = top.pop('Market Cap')

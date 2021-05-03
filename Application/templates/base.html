@@ -14,8 +14,10 @@
     <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
     <script src="https://canvasjs.com/assets/script/jquery-1.11.1.min.js"></script>
     <script type="text/javascript" src="https://cdn.fusioncharts.com/fusioncharts/latest/fusioncharts.js"></script>
-     <script type="text/javascript" src="https://cdn.fusioncharts.com/fusioncharts/latest/themes/fusioncharts.theme.fusion.js"></script>
+    <script type="text/javascript"
+            src="https://cdn.fusioncharts.com/fusioncharts/latest/themes/fusioncharts.theme.fusion.js"></script>
     <script src="../static/JS/JS.js"></script>
+    <script src="../static/JS/menu_buttons.js"></script>
 </head>
 <body class="light-grey">
 
@@ -30,15 +32,22 @@
     <div class="container">
         <h5>Menu</h5>
     </div>
-    <div class="w3-bar-block">
-        <a href="#" class="w3-bar-item w3-button padding"><i class="fa fa-users fa-fw"></i> About us</a>
-        <a href="#" class="w3-bar-item w3-button padding blue"><i class="fa fa-cog fa-fw" aria-hidden="true"></i>
+    <div id="menu_a_tags" class="w3-bar-block">
+        <a href="#" class="w3-bar-item w3-button padding blue" id="home" onclick="add_active('home')"><i
+                class="fa fa-home fa-fw"></i>
+            Home</a>
+        <a href="#" class="w3-bar-item w3-button padding" id="about_us" onclick="add_active('about_us')"><i
+                class="fa fa-users fa-fw"></i>
+            About us</a>
+        <a href="#" id="help_and_support" class="w3-bar-item w3-button padding"
+           onclick="add_active('help_and_support')"><i
+                class="fa fa-question-circle" aria-hidden="true"></i> Help and Support</a>
+        <a href="#" class="w3-bar-item w3-button padding" id="settings" onclick="add_active('settings')"><i
+                class="fa fa-cog fa-fw"
+                aria-hidden="true"></i>
             Settings</a>
     </div>
-    <a href="#" class="w3-bar-item w3-button padding"><i class="fa fa-question-circle" aria-hidden="true"></i> Help and Support</a>
-
 </nav>
-
 
 <!-- BOXES -->
 <div class="main" id="main">
@@ -61,14 +70,14 @@
                 <h4>Statistics</h4>
             </div>
         </a>
-        <a  href="{{ url_for('graph') }}" class="w3-quarter box">
+        <a href="{{ url_for('graph') }}" class="w3-quarter box">
             <div class="container teal padding-16">
                 <div class="w3-left"><i class="fa fa-line-chart extra_large" aria-hidden="true"></i></div>
                 <div class="clear"></div>
                 <h4>Graphs</h4>
             </div>
         </a>
-        <a href="{{ url_for('tops') }}"class="w3-quarter box">
+        <a href="{{ url_for('tops') }}" class="w3-quarter box">
             <div class="container orange white padding-16">
                 <div class="w3-left"><i class="fa fa-trophy extra_large" aria-hidden="true"></i></div>
                 <div class="clear"></div>
