@@ -21,10 +21,6 @@ def create_app(test_config=None):
     def graph():
         return render_template("graph.html")
 
-    @app.route('/settings')
-    def settings():
-        return render_template("settings.html")
-
     @app.route('/about_us')
     def about_us():
         return render_template("about_us.html")

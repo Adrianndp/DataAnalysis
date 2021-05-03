@@ -5,7 +5,8 @@
     .container_with_image {
         display: flex;
         align-items: center;
-        justify-content: center
+        justify-content: center;
+        margin: 20px;
     }
 
     .image {
@@ -17,9 +18,13 @@
         padding-left: 20px;
     }
 
+    p {
+        font-family: "Comic Sans", cursive;
+    }
+
     .title {
+        font-family: "Comic Sans MS", "Comic Sans", cursive;
         color: #3759a7;
-        font-family: 'Raleway', sans-serif;
         font-size: 50px;
         font-weight: 800;
         line-height: 72px;
@@ -34,7 +39,7 @@
     <div class="image">
         <img class="menu_images" src="../static/PHOTO/home_pic.png">
     </div>
-    <div class="text">
+    <div style="margin-left: 50px;" class="text">
         <h1 class="title">Why you should invest?</h1>
         <p style="max-width: 80%;">
             Investing allows you to significantly grow your money over time thanks to the power of compound returns.
@@ -42,6 +47,61 @@
             could grow into millions of dollars, given enough time</p>
     </div>
 </div>
+
+
+<div class="container_with_image">
+    <div class="text">
+        <h1 class="title">Indicators</h1>
+        <p style="max-width: 80%; white-space: pre-line">
+            Economic indicators are some of the most valuable tools investors can place in their arsenals.
+            In the selection <a href="{{ url_for('graph') }}"><b>Graphs</b></a> you will see 2 of the most famous ones.
+            <b>RSI:</b> is a momentum indicator used in technical analysis that measures the magnitude of recent price
+            changes to evaluate overbought or oversold conditions in the price of a stock or other asset.
+            The RSI is displayed as an oscillator (a line graph that moves between two extremes) and can have a reading
+            from 0 to 100 and our other indicator is the EMA.
+            <b>EMA:</b> The exponential moving average (EMA) is a technical chart indicator that tracks the price of an
+            investment (like a stock or commodity) over time.</p>
+    </div>
+    <div class="image">
+        <img style="width: 900px;height: 500px;" class="menu_images" src="../static/PHOTO/wallet.png">
+    </div>
+</div>
+
+
+<h1 class="title" style="max-width: 100%; margin-top: 150px">About Us</h1>
+<div class="container_with_image">
+    <div class="image">
+        <img id="about_us_img" src="../static/PHOTO/about_us.png">
+    </div>
+    <div style="margin-left: 50px;" class="text">
+        <p style="max-width: 80%;">
+            I believe being financially educated is nowadays vital but it can seem very hard since we did not learn
+            it in school. That's why most people tend to give up too early.
+            This App is made to provide the basic knowledge and build your fundamentals in order for you
+            to have an easy first step in the financial world.
+        </p>
+    </div>
+</div>
+
+
+<h1 class="title" style="max-width: 100%; margin-top: 150px">What Can We Help You With?</h1>
+<div class="container_with_image">
+    <div class="image">
+        <img id="help_and_support_img" src="../static/PHOTO/help_and_support.png">
+    </div>
+    <div style="margin-left: 50px;" class="text">
+        <form action="/contact_us" style="max-width: 80%;">
+            <label style="display: block" for="fname">Name</label>
+            <input type="text" id="fname" name="firstname" placeholder="Name *">
+            <label style="display: block" for="femail">Email</label>
+            <input type="text" id="femail" name="femail" placeholder="Email *">
+            <label style="display: block" for="subject">Subject</label>
+            <textarea id="subject" name="subject" placeholder="Message *" style="height:170px"></textarea>
+            <input type="submit" value="Send">
+        </form>
+    </div>
+</div>
+
 {% endblock %}
 </body>
 </html>
