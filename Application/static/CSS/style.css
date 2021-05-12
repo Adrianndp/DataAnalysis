@@ -224,5 +224,39 @@
     color: #065ea5;
 }
 
-.menu_images {
+.container_with_image {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 20px;
+}
+
+.image_in_container {
+    flex-basis: 40%
+}
+
+.text_in_container {
+    font-size: 20px;
+    padding-left: 20px;
+}
+
+
+.contact_us {
+    border: 0;
+    padding: 6px 0 7px;
+    animation-name: mui-auto-fill-cancel;
+    background: none;
+
+}
+
+.title {
+    font-family: "Comic Sans MS", "Comic Sans", cursive;
+    color: #3759a7;
+    font-size: 50px;
+    font-weight: 800;
+    line-height: 72px;
+    margin: 0 0 24px;
+    text-align: center;
+    text-transform: uppercase;
+    max-width: 80%;
 }
