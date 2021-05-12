@@ -1,7 +1,6 @@
 from pandas_datareader import data
 from yahoo_fin import stock_info as si
-from Helper.date_format import get_current_date
-import requests_html  # important to have for yahoo_fin to work
+from Application.date_format import get_current_date
 
 
 def get_data(stock_name, start_date, end_date=None, head=None, index_date=False, close=False):
@@ -41,12 +40,10 @@ def get_most_active_stocks():
 
 
 def get_bigger_gainers():
-    # TOO 100
     return si.get_day_gainers()
 
 
 def get_worst_performers():
-    # TOO 100
     return si.get_day_losers()
 
 

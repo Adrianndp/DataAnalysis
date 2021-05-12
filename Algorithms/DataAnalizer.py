@@ -1,7 +1,6 @@
 import matplotlib.pyplot as plt
-from Helper import date_format as date
 from sklearn.linear_model import LinearRegression
-from Application import api as myAPI
+from Application import api as myAPI, date_format as date
 import numpy as np
 
 
