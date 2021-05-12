@@ -2,8 +2,8 @@ from Algorithms.DataAnalizer import __initialize_stock
 from Algorithms.Indicators import get_EMA, get_RSI
 import Helper.date_format as date
 from flask import abort
-from APIS.StockAPI import get_bigger_gainers, get_dividend_share, get_market_cap, get_current_stock_price, \
-    get_last_cash_flow, get_worst_performers, get_most_active_stocks
+from Application.api import get_bigger_gainers, get_dividend_share, get_market_cap, get_current_stock_price, \
+    get_last_cash_flow, get_worst_performers
 import json
 
 
