@@ -17,3 +17,4 @@ def test_home(client):
 def test_about_us(client):
     rv = client.get('/about_us')
     assert rv.status_code == 200
+
