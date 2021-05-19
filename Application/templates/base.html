@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <html>
 <head>
     <title>Stock Analyser</title>
@@ -19,7 +18,7 @@
     <script src="../static/JS/JS.js"></script>
     <script src="../static/JS/menu_buttons.js"></script>
 </head>
-<body class="light-grey">
+<body class="background_color">
 
 <!-- Sidebar/menu -->
 <nav class="sidebar white animate-left" style="z-index:3;width:300px;" id="mySidebar"><br>
@@ -33,13 +32,13 @@
         <h5>Menu</h5>
     </div>
     <div id="menu_a_tags" class="w3-bar-block">
-        <a href="#" class="w3-bar-item w3-button padding blue" id="home" onclick="add_active('home')"><i
+        <a href="#initial" class="w3-bar-item w3-button padding blue" id="home" onclick="add_active('home')"><i
                 class="fa fa-home fa-fw"></i>
             Home</a>
-        <a href="#" class="w3-bar-item w3-button padding" id="about_us" onclick="add_active('about_us')"><i
+        <a href="#about" class="w3-bar-item w3-button padding" id="about_us" onclick="add_active('about_us')"><i
                 class="fa fa-users fa-fw"></i>
             About us</a>
-        <a href="#" id="help_and_support" class="w3-bar-item w3-button padding"
+        <a href="#help" id="help_and_support" class="w3-bar-item w3-button padding"
            onclick="add_active('help_and_support')"><i
                 class="fa fa-question-circle" aria-hidden="true"></i> Help and Support</a>
     </div>
@@ -47,13 +46,13 @@
 
 <!-- BOXES -->
 <div class="main" id="main">
-    <a class="menu" onclick="menu()"><i class="fa fa-bars" aria-hidden="true"></i></a>
+    <a id="three_points" style="display: none" class="menu" onclick="menu()"><i class="fa fa-bars" aria-hidden="true"></i></a>
     <header class="container">
         <h5><b><i class="fa fa-dashboard"></i> Stock Analyzer </b></h5>
     </header>
     <div class="w3-row-padding margin-bottom">
         <a href="{{ url_for('home') }}" class="w3-quarter box">
-            <div class="container red padding-16">
+            <div class="container blue padding-16">
                 <div class="fa fa-home fa-fw extra_large"></div>
                 <div class="clear"></div>
                 <h4>Home</h4>
@@ -67,14 +66,14 @@
             </div>
         </a>
         <a href="{{ url_for('graph') }}" class="w3-quarter box">
-            <div class="container teal padding-16">
+            <div class="container blue padding-16">
                 <div class="w3-left"><i class="fa fa-line-chart extra_large" aria-hidden="true"></i></div>
                 <div class="clear"></div>
                 <h4>Graphs</h4>
             </div>
         </a>
         <a href="{{ url_for('tops') }}" class="w3-quarter box">
-            <div class="container orange white padding-16">
+            <div class="container blue white padding-16">
                 <div class="w3-left"><i class="fa fa-trophy extra_large" aria-hidden="true"></i></div>
                 <div class="clear"></div>
                 <h4>Top Performances</h4>

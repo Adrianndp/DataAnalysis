@@ -18,7 +18,7 @@ def db_insert_new_row(table_name, row_params):
 
 def db_query_one(table_name, row_params):
     row = db_session.query(get_table_object(table_name)).filter_by(**row_params).first()
-    return {key: vars(row)[key] for key in row.__dict__ if key != '_sa_instance_state'} if row else None
+    return {key: vars(row)[key] for key in vars(row) if key != '_sa_instance_state'} if row else None
 
 
 def db_update_row(table_name, row_id, row_params):

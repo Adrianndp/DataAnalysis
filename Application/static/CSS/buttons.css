@@ -96,3 +96,23 @@
     color: red;
     font-size: large;
 }
+
+.send_button {
+    width: 50%;
+    display: block;
+	border-radius: 10px;
+	background-color: #5d73ab;
+	border: none;
+	text-align: center;
+    color: white;
+	font-size: 14px;
+	padding: 10px;
+	transition: all 0.5s;
+	cursor: pointer;
+	margin: auto;
+}
+
+.send_button:hover {
+	background-color: #1a21c8;
+
+}
