@@ -7,21 +7,23 @@
 
 <main>
     <section id="graphs" style="margin-top: 100px">
-        <div class="container_with_image">
-            <div class="image_in_container">
-                <div style="margin-top: 150px;" id="demo"></div>
-            </div>
-            <div style="margin-left: 50px;" class="text_in_container">
-                <a style="color: blue" href="{{ url_for('graph') }}"> Try it yourself! </a>
-                <p>Search your favorite stocks and see their technical analysis and their statistics.</p>
-            </div>
-        </div>
+        <h1 style="margin-top: 50px" class="title">Buy low, sell high</h1>
     </section>
+    <div class="container_with_image">
+        <div class="image_in_container">
+            <div id="demo"></div>
+        </div>
+        <div style="margin-left: 50px;" class="text_in_container">
+            <a style="color: blue" href="{{ url_for('graph') }}"> Try it yourself! </a>
+            <p>Search your favorite stocks and see their technical analysis and their statistics.</p>
+        </div>
+    </div>
+
     <script src="../static/JS/demo_chart.js"></script>
     <section id="the_tops" style="margin-top: 100px">
         <div class="container_with_image" id="tops">
             <div class="image_in_container">
-                <img id="stats_image" src="../static/SVG/trophy.svg" width="300" height="300">
+                <img style="margin-top: 150px" id="stats_image" src="../static/SVG/trophy.svg" width="300" height="300">
             </div>
             <div id="stats_buttons" style="margin-left: 50px;" class="text_in_container">
                 <h1 style="margin-top: 150px" class="title">Most searched

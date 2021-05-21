@@ -131,7 +131,7 @@ function get_RSI(RSI, range) {
                 }
             }
         },
-        colors: ["#026d63"],
+        colors: ["#005596"],
         dataLabels: {
             enabled: false
         },
@@ -154,10 +154,10 @@ function get_RSI(RSI, range) {
                 opacityTo: 0.9,
                 stops: [0, 90, 100]
             },
-            colors: ['#009688']
+            colors: ['#005596']
         },
         stroke: {
-            colors: ['#009688']
+            colors: ['#005596']
         },
         xaxis: {
             type: 'datetime',
@@ -222,7 +222,7 @@ function get_graph(data, EMA, stock_title, RSI, range) {
                 }
             }
         },
-        colors: ["#026d63"],
+        colors: ["#005596"],
         tooltip: {
             enabled: true,
             custom: function ({dataPointIndex, w}) {
@@ -250,7 +250,7 @@ function get_graph(data, EMA, stock_title, RSI, range) {
         },
         stroke: {
             width: [3, 1],
-            colors: ['#009688']
+            colors: ['#005596']
 
         },
         title: {

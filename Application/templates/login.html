@@ -6,9 +6,15 @@
 </head>
 <body>
 {% block content %}
+<style>
+    ::placeholder {
+        color: gray;
+    }
+
+</style>
 <link rel="stylesheet" href="../static/CSS/form.css">
 <section class="form animated flipInX">
-    <h2>Login To Your Account</h2>
+    <h1>Login To Your Account</h1>
     <p class="valid">Valid. Please wait a moment.</p>
     <p class="error">Error. Please enter correct Username &amp; password.</p>
     <form class="loginbox" autocomplete="off">

@@ -162,6 +162,7 @@
 }
 
 .styled-table {
+    background: #cde1e4;
     border-collapse: collapse;
     margin: 50px auto;
     font-size: 0.9em;
@@ -217,8 +218,6 @@
 
 .stats {
     padding: 50px;
-    background-color: #e5ebfb;
-    border-radius: 5%;
     width: 50%;
     margin: auto;
     color: #065ea5;
@@ -259,7 +258,7 @@
     margin: 0 0 24px;
     text-align: center;
     text-transform: uppercase;
-    max-width: 80%;
+    max-width: 100%
 }
 
 .login {
