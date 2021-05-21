@@ -2,6 +2,7 @@
 <html lang="en">
 <body>
 {% block content %}
+<div id="empty_useless_div"></div>
 <div style="margin: 50px">
     <form id='submit-form' class="form-group">
         <input oninput="let p=this.selectionStart;this.value=this.value.toUpperCase();this.setSelectionRange(p, p);"
@@ -11,11 +12,12 @@
             <i class="fa fa-search" aria-hidden="true"></i></button>
     </form>
 </div>
+<a class="link_blue" style="display: none" id="stats_button" onclick="fetch_stats(document.getElementsByClassName('current_stock_1234')[0].id, 20)">Click to see Statists</a>
 <div id="stock_error" class="error" style="display: none"></div>
+<div id="stats" class="stats" style="display:none;"></div>
 <div id="chart"></div>
 <div id="RSI"></div>
 <img id="stock_image" src="../static/SVG/stock.svg" width="300" height="300">
-<div id="stats" class="stats" style="display:none;"></div>
 {% endblock %}
 </body>
 </html>

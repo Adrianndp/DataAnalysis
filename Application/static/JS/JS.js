@@ -27,7 +27,6 @@ function menu() {
 
 
 function fetch_data(stock, window_size) {
-    fetch_stats(stock);
     stock = stock.toUpperCase()
     fetch(`http://localhost:5000/get_graph_api?stock=${stock}`)
         .then(response => {
@@ -78,6 +77,7 @@ function handle_data(data, stock_title, window_size) {
 
 
 function handle_stats(data, stock_tittle) {
+    show_hide_stats_button();
     document.getElementById('stock_error').style.display = "none";
     document.getElementById('stats').innerHTML = "";
     let node = document.createElement("h1");
@@ -110,7 +110,6 @@ function show_error(stock, charts = true) {
         document.getElementById('chart').style.display = "none";
         document.getElementById('stock_image').style.display = "none";
     } else {
-        document.getElementById('stats_image').style.display = "none";
         document.getElementById('stats').style.display = 'none'
     }
     document.getElementById('stock_error').innerHTML = (`No Data fetched for symbol: ${stock}`);
@@ -180,9 +179,23 @@ function get_RSI(RSI, range) {
     };
     let chart = new ApexCharts(document.querySelector("#RSI"), options);
     chart.render();
+    document.getElementById('stats').style.display = "none";
+    show_hide_stats_button();
+}
+
+function append_element_to_store_id(stock_title) {
+    if (document.getElementsByClassName("current_stock_1234").length) {
+        document.getElementsByClassName("current_stock_1234")[0].id = stock_title;
+    } else {
+        let g = document.createElement('div');
+        g.setAttribute("id", stock_title);
+        g.setAttribute("class", "current_stock_1234");
+        document.getElementById('empty_useless_div').appendChild(g);
+    }
 }
 
 function get_graph(data, EMA, stock_title, RSI, range) {
+    append_element_to_store_id(stock_title)
     document.getElementById("stock_image").style.display = "none";
     document.getElementById('stock').value = "";
     let options = {
@@ -265,4 +278,14 @@ function get_graph(data, EMA, stock_title, RSI, range) {
     );
     chart.render();
     get_RSI(RSI, range);
+}
+
+function show_hide_stats_button() {
+    let stats_button = document.getElementById("stats_button");
+    if (stats_button.style.display === "none") {
+        stats_button.style.display = "block";
+    } else {
+        stats_button.style.display = "none";
+    }
+
 }

@@ -9,7 +9,7 @@
     <section id="graphs" style="margin-top: 100px">
         <div class="container_with_image">
             <div class="image_in_container">
-                <div id="demo"></div>
+                <div style="margin-top: 150px;" id="demo"></div>
             </div>
             <div style="margin-left: 50px;" class="text_in_container">
                 <a style="color: blue" href="{{ url_for('graph') }}"> Try it yourself! </a>
@@ -24,7 +24,7 @@
                 <img id="stats_image" src="../static/SVG/trophy.svg" width="300" height="300">
             </div>
             <div id="stats_buttons" style="margin-left: 50px;" class="text_in_container">
-                <h1 style="text-align: center;margin-top: 50px; color: #045392; margin-bottom: 50px">Most searched
+                <h1 style="margin-top: 150px" class="title">Most searched
                     Categories</h1>
                 <form action="{{url_for ('tops') }}" method="POST">
                     <input style="margin-bottom: 30px;" type="submit" class="table_titles" name="submit_button"
