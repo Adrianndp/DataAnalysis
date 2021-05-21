@@ -19,21 +19,17 @@ def create_app(test_config=None):
     def home():
         return render_template("home.html")
 
+    @app.route('/login')
+    def login():
+        return render_template("login.html")
+
+    @app.route('/register')
+    def register():
+        return render_template("register.html")
+
     @app.route('/graph')
     def graph():
         return render_template("graph.html")
-
-    @app.route('/about_us')
-    def about_us():
-        return render_template("about_us.html")
-
-    @app.route('/help_and_support')
-    def help_and_support():
-        return render_template("help_and_support.html")
-
-    @app.route('/statistics')
-    def statistics():
-        return render_template("statistics.html")
 
     @app.route('/tops', methods=['GET', 'POST'])
     def tops():

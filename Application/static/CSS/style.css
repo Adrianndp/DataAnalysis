@@ -199,11 +199,12 @@
     border-style: hidden;
     display: block;
     font-size: 14px;
-	transition: all 0.5s;
-	margin: auto;
+    transition: all 0.5s;
+    margin: auto;
 }
+
 .table_titles:hover {
-	background-color: #1a21c8;
+    background-color: #1a21c8;
     color: white;
 
 }
@@ -259,4 +260,32 @@
     text-align: center;
     text-transform: uppercase;
     max-width: 80%;
+}
+
+.login {
+    cursor: pointer;
+    padding: 15px;
+    color: white;
+    background: dodgerblue;
+    border-radius: 5px;
+    text-decoration: none;
+}
+
+.login:hover {
+    background: white;
+    color: dodgerblue;
+}
+
+.register {
+    cursor: pointer;
+    padding: 15px;
+    background: white;
+    color: dodgerblue;
+    border-radius: 5px;
+    text-decoration: none;
+}
+
+.register:hover {
+    color: white;
+    background: dodgerblue;
 }

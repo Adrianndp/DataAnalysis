@@ -27,6 +27,7 @@ function menu() {
 
 
 function fetch_data(stock, window_size) {
+    fetch_stats(stock);
     stock = stock.toUpperCase()
     fetch(`http://localhost:5000/get_graph_api?stock=${stock}`)
         .then(response => {
@@ -99,7 +100,6 @@ function handle_stats(data, stock_tittle) {
         }
     }
     document.getElementById('stock').value = "";
-    document.getElementById('stats_image').style.display = 'none'
     document.getElementById('stats').style.display = 'block'
 }
 
@@ -183,7 +183,6 @@ function get_RSI(RSI, range) {
 }
 
 function get_graph(data, EMA, stock_title, RSI, range) {
-    console.log("graph")
     document.getElementById("stock_image").style.display = "none";
     document.getElementById('stock').value = "";
     let options = {

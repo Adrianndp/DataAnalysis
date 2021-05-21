@@ -1,52 +1,36 @@
 {% extends "base.html" %}
 <body>
 {% block content %}
-
 <script>
     document.getElementById('three_points').style.display = "inline";
 </script>
 
-
 <main>
-    <section id="initial">
+    <section id="graphs" style="margin-top: 100px">
         <div class="container_with_image">
             <div class="image_in_container">
-                <img class="menu_images" src="../static/PHOTO/home_pic.png">
+                <div id="demo"></div>
             </div>
             <div style="margin-left: 50px;" class="text_in_container">
-                <h1 class="title">Why you should invest?</h1>
-                <div style="color: lightslategrey">
-                    I believe being financially educated is nowadays vital but it can seem very hard since we did not
-                    learn
-                    it in school. That's why most people tend to give up too early.
-                    This App is made to provide the basic knowledge and build your fundamentals in order for you
-                    to have an easy first step in the financial world.
-                </div>
+                <a style="color: blue" href="{{ url_for('graph') }}"> Try it yourself! </a>
+                <p>Search your favorite stocks and see their technical analysis and their statistics.</p>
             </div>
         </div>
     </section>
-
-
-    <section id="indicators">
-        <div class="container_with_image">
-            <div class="text_in_container">
-                <h1 class="title">Indicators</h1>
-                <p style="max-width: 80%; white-space: pre-line; color: lightslategrey">
-                    Economic indicators are some of the most valuable tools investors can place in their arsenals.
-                    In the selection <a href="{{ url_for('graph') }}"><b>Graphs</b></a> you will see 2 of the most
-                    famous ones.
-                    <b>RSI:</b> is a momentum indicator used in technical analysis that measures the magnitude of recent
-                    price
-                    changes to evaluate overbought or oversold conditions in the price of a stock or other asset.
-                    The RSI is displayed as an oscillator (a line graph that moves between two extremes) and can have a
-                    reading
-                    from 0 to 100 and our other indicator is the EMA.
-                    <b>EMA:</b> The exponential moving average (EMA) is a technical chart indicator that tracks the
-                    price of an
-                    investment (like a stock or commodity) over time.</p>
-            </div>
+    <script src="../static/JS/demo_chart.js"></script>
+    <section id="the_tops" style="margin-top: 100px">
+        <div class="container_with_image" id="tops">
             <div class="image_in_container">
-                <img style="width: 900px;height: 500px;" class="menu_images" src="../static/PHOTO/wallet.png">
+                <img id="stats_image" src="../static/SVG/trophy.svg" width="300" height="300">
+            </div>
+            <div id="stats_buttons" style="margin-left: 50px;" class="text_in_container">
+                <h1 style="text-align: center;margin-top: 50px; color: #045392; margin-bottom: 50px">Most searched
+                    Categories</h1>
+                <form action="{{url_for ('tops') }}" method="POST">
+                    <input style="margin-bottom: 30px;" type="submit" class="table_titles" name="submit_button"
+                           value="Show Top Gainers Today">
+                    <input type="submit" class="table_titles" name="submit_button" value="Show Top Losers today">
+                </form>
             </div>
         </div>
     </section>
@@ -60,6 +44,11 @@
             <div style="margin-left: 50px;" class="text_in_container">
                 <h1 class="title" style="max-width: 100%; margin-top: 150px">About Us</h1>
                 <div style="color: lightslategrey">
+                    I believe being financially educated is nowadays vital but it can seem very hard since we did not
+                    learn
+                    it in school. That's why most people tend to give up too early.
+                    This App is made to provide the basic knowledge and build your fundamentals in order for you
+                    to have an easy first step in the financial world.
                     Investing allows you to significantly grow your money over time thanks to the power of compound
                     returns.
                     Compounding can be called the Eight Wonder of the World. Thanks to the power of compounding, a
