@@ -13,10 +13,10 @@
         <p class="error">{{ error }}</p>
     {% endif %}
     <form action="{{ url_for('register') }}" method="POST" autocomplete="off">
-        <input placeholder="Username" type="text" name="username" id="username">
-        <input placeholder="Email" type="text" name="email" id="email">
-        <input placeholder="Password" type="password" name="password" id="password">
-        <input placeholder="Repeat Password" type="password" name="rpassword" id="rpassword">
+        <input placeholder="Username" type="text" name="username" id="username" required="required">
+        <input placeholder="Email" type="text" name="email" id="email" required="required">
+        <input placeholder="Password" type="password" name="password" id="password" required="required">
+        <input placeholder="Repeat Password" type="password" name="rpassword" id="rpassword" required="required">
         <button id="submit">Register</button>
         <a style="color: blue" href="{{ url_for('login') }}"> Have an account already?</a>
     </form>
