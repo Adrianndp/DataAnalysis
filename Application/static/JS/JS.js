@@ -72,7 +72,8 @@ function handle_data(data, stock_title, window_size) {
     let max = new Date().getTime()
     let min = new Date(data.zoom_range).getTime()
     let range = max - min
-    get_graph(filtered_data, EMA, stock_title, RSI, range);
+    let EMA_title = `EMA_${window_size}`
+    get_graph(filtered_data, EMA, stock_title, RSI, range, EMA_title);
 }
 
 
@@ -106,6 +107,8 @@ function handle_stats(data, stock_tittle) {
 
 function show_error(stock, charts = true) {
     if (charts) {
+        document.getElementById("stats_button").style.display = "none";
+        document.getElementById("stats").style.display = "none";
         document.getElementById('RSI').style.display = "none";
         document.getElementById('chart').style.display = "none";
         document.getElementById('stock_image').style.display = "none";
@@ -131,7 +134,7 @@ function get_RSI(RSI, range) {
                 }
             }
         },
-        colors: ["#005596"],
+        colors: ["#a152e5"],
         dataLabels: {
             enabled: false
         },
@@ -146,18 +149,8 @@ function get_RSI(RSI, range) {
                 decimalsInFloat: 0,
             }
         ],
-        fill: {
-            type: "gradient",
-            gradient: {
-                shadeIntensity: 1,
-                opacityFrom: 0.7,
-                opacityTo: 0.9,
-                stops: [0, 90, 100]
-            },
-            colors: ['#005596']
-        },
         stroke: {
-            colors: ['#005596']
+            colors: ['#a152e5']
         },
         xaxis: {
             type: 'datetime',
@@ -194,19 +187,19 @@ function append_element_to_store_id(stock_title) {
     }
 }
 
-function get_graph(data, EMA, stock_title, RSI, range) {
+function get_graph(data, EMA, stock_title, RSI, range, EMA_TITLE) {
     append_element_to_store_id(stock_title)
     document.getElementById("stock_image").style.display = "none";
     document.getElementById('stock').value = "";
     let options = {
         series: [
             {
-                name: 'EMA',
+                name: EMA_TITLE,
                 type: 'line',
                 data: EMA,
             },
             {
-                name: 'Price',
+                name: 'Price 1 d candles',
                 type: 'candlestick',
                 data: data,
             }],

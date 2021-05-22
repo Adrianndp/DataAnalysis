@@ -5,6 +5,7 @@ from flask import abort
 from Application.api import get_bigger_gainers, get_dividend_share, get_market_cap, get_current_stock_price, \
     get_last_cash_flow, get_worst_performers
 import json
+from .user import *
 
 
 def get_graph_with_indicators(stock, start_date=None):
@@ -75,3 +76,22 @@ def get_dividends(ticker):
     dividends = get_dividend_share(ticker).to_json()
     dividends = json.loads(dividends)
     return dividends['dividend']
+
+
+def login(username, password):
+    user = db_query_one("User", {"username": username})
+    if not user:
+        return False
+    if not check_password(user.get('password'), password):
+        return False
+    else:
+        return user
+
+
+def register(username, email, password):
+    user = db_query_one("User", {"username": username})
+    if not user:
+        db_insert_new_row("User", {"username": username, "email": email, "password": password})
+        return True
+    else:
+        return False

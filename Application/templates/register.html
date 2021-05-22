@@ -11,11 +11,11 @@
     <h1>Register</h1>
     <p class="valid">Valid. Please wait a moment.</p>
     <p class="error">Error. Please enter correct Username &amp; password.</p>
-    <form class="loginbox" autocomplete="off">
-        <input placeholder="Username" type="text" id="username">
-        <input placeholder="Email" type="text" id="email">
-        <input placeholder="Password" type="password" id="password">
-        <input placeholder="Repeat Password" type="password" id="rpassword">
+    <form action="{{ url_for('register') }}" method = "POST" autocomplete="off">
+        <input placeholder="Username" type="text" name="username" id="username">
+        <input placeholder="Email" type="text" name="email" id="email">
+        <input placeholder="Password" type="password" name="password" id="password">
+        <input placeholder="Repeat Password" type="password" name="rpassword" id="rpassword">
         <button id="submit">Register</button>
         <a style="color: blue" href="{{ url_for('login') }}"> Have an account already?</a>
     </form>

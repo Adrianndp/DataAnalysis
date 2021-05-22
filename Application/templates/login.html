@@ -17,9 +17,9 @@
     <h1>Login To Your Account</h1>
     <p class="valid">Valid. Please wait a moment.</p>
     <p class="error">Error. Please enter correct Username &amp; password.</p>
-    <form class="loginbox" autocomplete="off">
-        <input placeholder="Username" type="text" id="username"></input>
-        <input placeholder="Password" type="password" id="password"></input>
+    <form action="{{ url_for('login') }}" method = "POST" autocomplete="off">
+        <input placeholder="Username" type="text" name="username" id="username">
+        <input placeholder="Password" type="password" name="password" id="password">
         <button id="submit">Login</button>
         <a style="color: blue" href="{{ url_for('register') }}"> Don't have an account yet?</a>
     </form>

@@ -29,9 +29,10 @@
                 <h1 style="margin-top: 150px" class="title">Most searched
                     Categories</h1>
                 <form action="{{url_for ('tops') }}" method="POST">
-                    <input style="margin-bottom: 30px;" type="submit" class="table_titles" name="submit_button"
-                           value="Show Top Gainers Today">
-                    <input type="submit" class="table_titles" name="submit_button" value="Show Top Losers today">
+                    <input style="margin-bottom: 30px;" class="table_titles green_button"
+                           type="submit" class="table_titles" name="submit_button"
+                           value="Show Top GAINERS Today">
+                    <input type="submit" class="table_titles red_button" name="submit_button" value="Show Top LOSERS today">
                 </form>
             </div>
         </div>

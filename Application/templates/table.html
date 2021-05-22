@@ -25,7 +25,11 @@
                 <td>{{ row.Name }}</td>
                 <td>{{ row.Price }}</td>
                 <td>{{ row.Change }}</td>
-                <td>{{ row.change_percentage }}</td>
+                {% if row.change_percentage < 0 %}
+                    <td style="color: #ef0e0e">{{ row.change_percentage }}</td>
+                {% else %}
+                    <td style="color: #37d037">{{ row.change_percentage }}</td>
+                {% endif %}
                 <td>{{ row.Volume }}</td>
                 <td>{{ row.market_cap }}</td>
             </tr>

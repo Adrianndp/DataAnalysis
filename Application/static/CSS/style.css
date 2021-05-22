@@ -171,6 +171,7 @@
 }
 
 .styled-table thead tr {
+    font-family: Arial, Helvetica, sans-serif;
     background-color: #ffffff;
     color: #3f51b5;
     text-align: left;
@@ -178,6 +179,8 @@
 
 .styled-table th,
 .styled-table td {
+    font-family: Arial, Helvetica, sans-serif;
+
     text-align: left;
     padding: 12px 15px;
 }
@@ -295,4 +298,25 @@
     cursor: pointer;
     text-decoration: underline;
 
+}
+
+.green_button {
+    background: #d4e4d4;
+    font-weight: 500;
+    color: white;
+    font-size: large;
+}
+
+.green_button:hover {
+    background: #27cb27;
+}
+
+.red_button {
+    background: #dcc5c5;
+    font-weight: 500;
+    color: white;
+    font-size: large;
+}
+.red_button:hover {
+    background: #cb1f1f;
 }
