@@ -5,6 +5,34 @@
     document.getElementById('three_points').style.display = "inline";
 </script>
 
+<style>
+    @keyframes myAnimation {
+        0% {
+            opacity: 1;
+        }
+        50% {
+            opacity: 0.5;
+        }
+        100% {
+            display: none;
+            opacity: 0;
+        }
+    }
+
+    #flash {
+        animation-name: myAnimation;
+        animation-duration: 4000ms;
+        animation-fill-mode: forwards;
+    }
+</style>
+
+{% with messages = get_flashed_messages() %}
+    {% if messages %}
+        {% for message in messages %}
+            <p id="flash" style="text-align: center; color: #4ea735">{{ message }}</p>
+        {% endfor %}
+    {% endif %}
+{% endwith %}
 <main>
     <section id="graphs" style="margin-top: 100px">
         <h1 style="margin-top: 50px" class="title">Buy low, sell high</h1>
@@ -32,7 +60,8 @@
                     <input style="margin-bottom: 30px;" class="table_titles green_button"
                            type="submit" class="table_titles" name="submit_button"
                            value="Show Top GAINERS Today">
-                    <input type="submit" class="table_titles red_button" name="submit_button" value="Show Top LOSERS today">
+                    <input type="submit" class="table_titles red_button" name="submit_button"
+                           value="Show Top LOSERS today">
                 </form>
             </div>
         </div>
@@ -70,14 +99,16 @@
             </div>
             <div style="margin-left: 50px;" class="text_in_container">
                 <h1 class="title" style="max-width: 100%; margin-top: 150px">What Can We Help You With?</h1>
-                <form action="/contact_us" style="max-width: 80%;">
+                <form action="{{ url_for('contact_us') }}" method="POST" autocomplete="off" style="max-width: 80%;">
                     <label style="display: block" for="fname">Name</label>
-                    <input class="contact_us" type="text" id="fname" name="firstname" placeholder="Name *">
+                    <input class="contact_us" type="text" id="fname" name="name" placeholder="Name *"
+                           required="required">
                     <label style="display: block" for="femail">Email</label>
-                    <input class="contact_us" type="text" id="femail" name="femail" placeholder="Email *">
+                    <input class="contact_us" type="text" id="femail" name="email" placeholder="Email *"
+                           required="required">
                     <label style="display: block" for="subject">Subject</label>
                     <textarea class="contact_us" id="subject" name="subject" placeholder="Message *"
-                              style="height:170px; width: 100%; margin-bottom: 20px;"></textarea>
+                              style="height:170px; width: 100%; margin-bottom: 20px;" required="required"></textarea>
                     <input class="send_button" type="submit" value="Send">
                 </form>
             </div>

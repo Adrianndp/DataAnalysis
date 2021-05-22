@@ -19,8 +19,8 @@
         <p class="error">{{ error }}</p>
     {% endif %}
     <form action="{{ url_for('login') }}" method="POST" autocomplete="off">
-        <input placeholder="Username" type="text" name="username" id="username">
-        <input placeholder="Password" type="password" name="password" id="password">
+        <input placeholder="Username" type="text" name="username" id="username" required="required">
+        <input placeholder="Password" type="password" name="password" id="password" required="required">
         <button id="submit">Login</button>
         <a style="color: blue" href="{{ url_for('register') }}"> Don't have an account yet?</a>
     </form>

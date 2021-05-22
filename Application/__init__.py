@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for, g, session
+from flask import Flask, render_template, request, redirect, url_for, g, session, flash, abort
 from flask_sqlalchemy import SQLAlchemy
 import Application.application as application
 import json
@@ -32,6 +32,15 @@ def create_app(test_config=None):
     @app.route('/')
     def home():
         return render_template("home.html")
+
+    @app.route('/contact_us', methods=["POST"])
+    def contact_us():
+        name = request.form["name"]
+        email = request.form["email"]
+        subject = request.form["subject"]
+        application.send_message_contact_us(name, email, subject)
+        flash("Thank you for your message! We will contact you per email", "info")
+        return redirect(url_for('home'))
 
     @app.route('/logout')
     def logout():
@@ -69,20 +78,19 @@ def create_app(test_config=None):
     def graph():
         return render_template("graph.html")
 
-    @app.route('/tops', methods=['GET', 'POST'])
+    @app.route('/tops', methods=['POST'])
     def tops():
-        if request.method == 'GET':
-            return render_template("tops.html")
-        else:
-            data = {}
-            if request.form['submit_button'] == 'Show Top GAINERS Today':
-                data = application.get_top('gainers')
-            elif request.form['submit_button'] == 'Show Top LOSERS today':
-                data = application.get_top('losers')
-            return redirect(url_for('table', data=data))
+        data = {}
+        if request.form['submit_button'] == 'Show Top GAINERS Today':
+            data = application.get_top('gainers')
+        elif request.form['submit_button'] == 'Show Top LOSERS today':
+            data = application.get_top('losers')
+        return redirect(url_for('table', data=data))
 
     @app.route('/table')
     def table():
+        if not request.args.get('data'):
+            abort(400, "data can not be empty")
         return render_template("table.html", data=json.loads(request.args.get('data')))
 
     @app.route('/get_graph_api')
@@ -92,7 +100,7 @@ def create_app(test_config=None):
         return application.get_graph_with_indicators(stock, start_date)
 
     @app.route('/get_stats_api')
-    def get_stats():
+    def get_stats_api():
         stock = request.args.get('stock', None)
         return application.get_stats(stock)
 

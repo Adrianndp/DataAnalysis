@@ -27,6 +27,7 @@ function menu() {
 
 
 function fetch_data(stock, window_size) {
+    document.getElementById("loader").style.display = "block"
     stock = stock.toUpperCase()
     fetch(`http://localhost:5000/get_graph_api?stock=${stock}`)
         .then(response => {
@@ -43,6 +44,8 @@ function fetch_data(stock, window_size) {
 }
 
 function fetch_stats(stock) {
+    document.getElementById("loader").style.display = "block"
+    document.getElementById("stock_image").style.display = "none";
     fetch(`http://localhost:5000/get_stats_api?stock=${stock}`)
         .then(response => {
             if (response.ok) {
@@ -100,6 +103,7 @@ function handle_stats(data, stock_tittle) {
             document.getElementById("stats").appendChild(node);
         }
     }
+    document.getElementById("loader").style.display = "none"
     document.getElementById('stock').value = "";
     document.getElementById('stats').style.display = 'block'
 }
@@ -107,11 +111,13 @@ function handle_stats(data, stock_tittle) {
 
 function show_error(stock, charts = true) {
     if (charts) {
+        document.getElementById("loader").style.display = "none"
         document.getElementById("stats_button").style.display = "none";
         document.getElementById("stats").style.display = "none";
         document.getElementById('RSI').style.display = "none";
         document.getElementById('chart').style.display = "none";
         document.getElementById('stock_image').style.display = "none";
+
     } else {
         document.getElementById('stats').style.display = 'none'
     }
@@ -173,6 +179,7 @@ function get_RSI(RSI, range) {
     let chart = new ApexCharts(document.querySelector("#RSI"), options);
     chart.render();
     document.getElementById('stats').style.display = "none";
+    document.getElementById("loader").style.display = "none"
     show_hide_stats_button();
 }
 
@@ -189,7 +196,6 @@ function append_element_to_store_id(stock_title) {
 
 function get_graph(data, EMA, stock_title, RSI, range, EMA_TITLE) {
     append_element_to_store_id(stock_title)
-    document.getElementById("stock_image").style.display = "none";
     document.getElementById('stock').value = "";
     let options = {
         series: [

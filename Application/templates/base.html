@@ -22,11 +22,11 @@
 <!-- Sidebar/menu -->
 <nav class="sidebar white animate-left" style="z-index:3;width:300px;" id="mySidebar"><br>
     <div class="container row">
-        <div class="w3-col s8 w3-bar">
+        <div>
             {% if g.user %}
-                <span>Hi, <strong>{{ g.user.username }}</strong></span><br>
+            <span>Welcome, <strong>{{ g.user.username }}</strong></span><br>
             {% else %}
-                <span>Hi, <strong>Investor</strong></span><br>
+            <span>Hi, <strong>Investor</strong></span><br>
             {% endif %}
 
         </div>
@@ -57,13 +57,15 @@
                                                                                                  aria-hidden="true"></i></a>
     <header class="container">
         <p style="text-align:left;">
-        <h5 style="margin-left: 30px"><b><i class="fa fa-dashboard"></i> Stock Analyzer </b></h5>
-        {% if not g.user %}
+            <a href="{{ url_for('home') }}" style="margin-left: 30px;text-decoration: none;
+        font-size: larger;"><b><i class="fa fa-dashboard"></i> Stock Analyzer </b></a>
+
+            {% if not g.user %}
             <a class="register" href="{{ url_for('register') }}" style="float:right; margin-left: 20px;">Register</a>
             <a class="login" href="{{ url_for('login') }}" style="float:right;">Log in</a>
-        {% else %}
+            {% else %}
             <a class="logout" href="{{ url_for('logout') }}" style="float:right;">Log out</a>
-        {% endif %}
+            {% endif %}
         </p>
     </header>
     {% block content %}

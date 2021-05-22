@@ -2,6 +2,7 @@
 <html lang="en">
 <body>
 {% block content %}
+<link rel="stylesheet" href="../static/CSS/loading.css">
 <div id="empty_useless_div"></div>
 <div style="margin: 50px">
     <form id='submit-form' class="form-group">
@@ -15,6 +16,9 @@
 <a class="link_blue" style="display: none" id="stats_button" onclick="fetch_stats(document.getElementsByClassName('current_stock_1234')[0].id, 20)">Click to see Statists</a>
 <div id="stock_error" class="error" style="display: none"></div>
 <div id="stats" class="stats" style="display:none;"></div>
+<div style="width: 100%; margin: auto">
+    <div id="loader" style="display: none; margin: auto" class="lds-ring"><div></div><div></div><div></div><div></div></div>
+</div>
 <div id="chart"></div>
 <div id="RSI"></div>
 <img id="stock_image" src="../static/SVG/stock.svg" width="300" height="300">

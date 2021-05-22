@@ -6,6 +6,7 @@ from Application.api import get_bigger_gainers, get_dividend_share, get_market_c
     get_last_cash_flow, get_worst_performers
 import json
 from .user import *
+import requests
 
 
 def get_graph_with_indicators(stock, start_date=None):
@@ -99,3 +100,11 @@ def register(username, email, password):
 
 def get_user(username):
     return db_query_one("User", {"username": username})
+
+
+def send_message_contact_us(name, email, subject):
+    chat_id = "-1001342896325"
+    api_key = "1890468444:AAFwGp3_3uYHqLZxnL3JgcSf3PHaC8KaFFc"
+    text = f"name: {name}\nemail={email}\nsubject={subject}"
+    base_url = f"https://api.telegram.org/bot{api_key}/sendMessage?chat_id={chat_id}&text={text}"
+    requests.get(base_url)
