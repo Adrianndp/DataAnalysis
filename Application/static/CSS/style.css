@@ -278,6 +278,19 @@
     color: dodgerblue;
 }
 
+.logout {
+    cursor: pointer;
+    padding: 15px;
+    color: white;
+    background: #c63352;
+    border-radius: 5px;
+    text-decoration: none;
+}
+
+.logout:hover {
+    background: #db0c3b;
+}
+
 .register {
     cursor: pointer;
     padding: 15px;
@@ -317,6 +330,7 @@
     color: white;
     font-size: large;
 }
+
 .red_button:hover {
     background: #cb1f1f;
 }

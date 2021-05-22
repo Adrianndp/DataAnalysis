@@ -49,7 +49,3 @@
 .form button:hover {
     background: #054d92;
 }
-
-.error, .valid {
-    display: none;
-}

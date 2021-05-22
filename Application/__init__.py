@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for, g
+from flask import Flask, render_template, request, redirect, url_for, g, session
 from flask_sqlalchemy import SQLAlchemy
 import Application.application as application
 import json
@@ -20,6 +20,11 @@ def create_app(test_config=None):
     else:
         app.config.update(test_config)
 
+    @app.before_request
+    def before_request():
+        if "username" in session:
+            g.user = application.get_user(session.get("username"))
+
     @app.teardown_appcontext
     def shutdown_session(exception=None):
         db_session.remove()
@@ -28,17 +33,21 @@ def create_app(test_config=None):
     def home():
         return render_template("home.html")
 
+    @app.route('/logout')
+    def logout():
+        session.pop("username")
+        return redirect(url_for('home'))
+
     @app.route('/login', methods=["GET", "POST"])
     def login():
         if request.method == "POST":
             username = request.form["username"]
             password = request.form["password"]
-            user = application.login(username, password)
-            if not user:
+            if not application.login(username, password):
                 return redirect(url_for('login', error="Invalid username or password"))
-            g.user = user
+            session["username"] = username
             return redirect(url_for('home'))
-        return render_template("login.html")
+        return render_template("login.html", error=request.args.get('error'))
 
     @app.route('/register', methods=["GET", "POST"])
     def register():
@@ -51,11 +60,10 @@ def create_app(test_config=None):
                 if application.register(username, email, password):
                     return redirect(url_for('login'))
                 else:
-                    return redirect(url_for('login', error="Username already exists"))
+                    return redirect(url_for('register', error="Username already exists"))
             else:
                 return redirect(url_for('register', error="Passwords do not match"))
-            return render_template("register.html")
-        return render_template("register.html")
+        return render_template("register.html", error=request.args.get('error'))
 
     @app.route('/graph')
     def graph():

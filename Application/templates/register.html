@@ -9,9 +9,10 @@
 <link rel="stylesheet" href="../static/CSS/form.css">
 <section class="form animated flipInX">
     <h1>Register</h1>
-    <p class="valid">Valid. Please wait a moment.</p>
-    <p class="error">Error. Please enter correct Username &amp; password.</p>
-    <form action="{{ url_for('register') }}" method = "POST" autocomplete="off">
+    {% if error %}
+        <p class="error">{{ error }}</p>
+    {% endif %}
+    <form action="{{ url_for('register') }}" method="POST" autocomplete="off">
         <input placeholder="Username" type="text" name="username" id="username">
         <input placeholder="Email" type="text" name="email" id="email">
         <input placeholder="Password" type="password" name="password" id="password">

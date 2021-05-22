@@ -85,7 +85,7 @@ def login(username, password):
     if not check_password(user.get('password'), password):
         return False
     else:
-        return user
+        return True
 
 
 def register(username, email, password):
@@ -95,3 +95,7 @@ def register(username, email, password):
         return True
     else:
         return False
+
+
+def get_user(username):
+    return db_query_one("User", {"username": username})
