@@ -181,6 +181,7 @@ function get_RSI(RSI, range) {
     document.getElementById('stats').style.display = "none";
     document.getElementById("loader").style.display = "none"
     show_hide_stats_button();
+    document.getElementById("stock_image").style.display = "none";
 }
 
 function append_element_to_store_id(stock_title) {
