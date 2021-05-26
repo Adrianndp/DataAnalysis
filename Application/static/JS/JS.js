@@ -82,7 +82,6 @@ function handle_data(data, stock_title, window_size) {
 
 function handle_stats(data, stock_tittle) {
     show_hide_stats_button();
-    document.getElementById('stock_error').style.display = "none";
     document.getElementById('stats').innerHTML = "";
     let node = document.createElement("h1");
     node.style.color = '#0505af'
@@ -180,7 +179,7 @@ function get_RSI(RSI, range) {
     chart.render();
     document.getElementById('stats').style.display = "none";
     document.getElementById("loader").style.display = "none"
-    show_hide_stats_button();
+      let stats_button = document.getElementById("stats_button").style.display = "block";
     document.getElementById("stock_image").style.display = "none";
 }
 
