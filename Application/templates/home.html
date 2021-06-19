@@ -27,11 +27,11 @@
 </style>
 
 {% with messages = get_flashed_messages() %}
-    {% if messages %}
-        {% for message in messages %}
-            <p id="flash" style="text-align: center; color: #4ea735">{{ message }}</p>
-        {% endfor %}
-    {% endif %}
+{% if messages %}
+{% for message in messages %}
+<p id="flash" style="text-align: center; color: #4ea735">{{ message }}</p>
+{% endfor %}
+{% endif %}
 {% endwith %}
 <main>
     <section id="graphs" style="margin-top: 100px">

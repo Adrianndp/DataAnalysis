@@ -23,9 +23,12 @@ def test_graph(client):
 def test_tops(client):
     rv = client.post('/tops')
     assert rv.status_code == 400
-    rv = client.post('/tops', data={"submit_button": 'Show Top GAINERS Today'})
+    # send as form and not as json
+    rv = client.post('/tops', data={"submit_button": 'Show Top GAINERS Today'},
+                     content_type='application/x-www-form-urlencoded', follow_redirects=True)
+    assert rv.status_code == 200
     data = rv.data.decode("utf-8")
-    assert "/table?data=" in data  # link to send to /table
+    assert "Record of the first 100:" in data
 
 
 def test_table(client):
