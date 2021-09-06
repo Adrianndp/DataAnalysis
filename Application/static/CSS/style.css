@@ -264,45 +264,26 @@
     max-width: 100%
 }
 
-.login {
-    cursor: pointer;
-    padding: 15px;
-    color: white;
-    background: dodgerblue;
-    border-radius: 5px;
-    text-decoration: none;
-}
-
-.login:hover {
-    background: white;
-    color: dodgerblue;
-}
-
 .logout {
     cursor: pointer;
-    padding: 15px;
-    color: white;
-    background: #c63352;
+    color: #c63352;
     border-radius: 5px;
     text-decoration: none;
 }
 
 .logout:hover {
-    background: #db0c3b;
+    color: #72031c;
 }
 
-.register {
+.login_register {
     cursor: pointer;
-    padding: 15px;
-    background: white;
     color: dodgerblue;
     border-radius: 5px;
     text-decoration: none;
 }
 
-.register:hover {
-    color: white;
-    background: dodgerblue;
+.login_register:hover {
+    color: #012853;
 }
 
 .link_blue {

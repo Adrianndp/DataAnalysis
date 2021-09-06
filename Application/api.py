@@ -1,9 +1,12 @@
 from pandas_datareader import data
 from yahoo_fin import stock_info as si
 from Application.date_format import get_current_date
+from pandas_datareader import data as pdr
+import yfinance as yfin
 
 
 def get_data(stock_name, start_date, end_date=None, head=None, index_date=False, close=False):
+    yfin.pdr_override()
     """
     :param bool close: get only the close values
     :param str stock_name: The symbol of the stock for example AAPL
@@ -17,7 +20,7 @@ def get_data(stock_name, start_date, end_date=None, head=None, index_date=False,
     if end_date is None:
         end_date = get_current_date()
     try:
-        stock_data = data.DataReader(stock_name, 'yahoo', start_date, end_date)
+        stock_data = pdr.get_data_yahoo(stock_name, start_date, end_date)
         if close:
             stock_data = stock_data[['Close']]
         if index_date:
